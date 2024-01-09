@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.main;
+package joao.pedro.productsapi.infrastructure.config;
 
 import joao.pedro.productsapi.application.gateways.CategoryGateway;
 import joao.pedro.productsapi.application.usecases.category.CreateCategoryInteractor;
