@@ -8,11 +8,23 @@ import joao.pedro.productsapi.infrastructure.persistence.category.CategoryEntity
 import joao.pedro.productsapi.infrastructure.persistence.category.CategoryRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 @AllArgsConstructor
 public class CategoryRepositoryGateway implements CategoryGateway {
 
     private final CategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
+
+    @Override
+    public List<Category> listCategories() {
+        List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+        if(categoryEntities.isEmpty()) {
+            throw new EntityNotFoundException("Categories");
+        }
+        return categoryEntities.stream().map(categoryEntity -> categoryEntityMapper.toDomainObj(categoryEntity)).toList();
+    }
 
     @Override
     public Category findCategory(String name) {
