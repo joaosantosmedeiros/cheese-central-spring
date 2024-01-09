@@ -3,6 +3,7 @@ package joao.pedro.productsapi.infrastructure.gateways.category;
 import joao.pedro.productsapi.application.gateways.CategoryGateway;
 import joao.pedro.productsapi.domain.entity.Category;
 import joao.pedro.productsapi.domain.exceptions.EntityAlreadyExistsException;
+import joao.pedro.productsapi.domain.exceptions.EntityNotFoundException;
 import joao.pedro.productsapi.infrastructure.persistence.category.CategoryEntity;
 import joao.pedro.productsapi.infrastructure.persistence.category.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -16,13 +17,19 @@ public class CategoryRepositoryGateway implements CategoryGateway {
     @Override
     public Category findCategory(String name) {
         CategoryEntity category = categoryRepository.findByName(name);
+        if(category == null){
+            throw new EntityNotFoundException("Category");
+        }
         return categoryEntityMapper.toDomainObj(category);
     }
 
     @Override
     public Category createCategory(Category categoryDomainObj) {
+        Category categoryExists = null;
+        try{
+            categoryExists = this.findCategory(categoryDomainObj.name());
+        }catch (EntityNotFoundException ignored){}
 
-         var categoryExists = this.findCategory(categoryDomainObj.name());
          if(categoryExists != null) {
             throw new EntityAlreadyExistsException("Category");
          }

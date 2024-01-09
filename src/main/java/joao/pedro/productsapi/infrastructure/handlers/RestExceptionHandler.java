@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.infrastructure.handlers;
 
 import joao.pedro.productsapi.domain.exceptions.EntityAlreadyExistsException;
+import joao.pedro.productsapi.domain.exceptions.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityAlreadyExistsException.class)
     private ResponseEntity<ErrorResponse> entityAlreadyExists(EntityAlreadyExistsException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(exception.getMessage()));
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    private ResponseEntity<ErrorResponse> entityNotFound(EntityNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(exception.getMessage()));
     }
 }
