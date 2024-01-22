@@ -3,6 +3,7 @@ package joao.pedro.productsapi.infrastructure.config;
 import joao.pedro.productsapi.application.gateways.CategoryGateway;
 import joao.pedro.productsapi.application.usecases.category.CreateCategoryInteractor;
 import joao.pedro.productsapi.application.usecases.category.FindCategoryInteractor;
+import joao.pedro.productsapi.application.usecases.category.ListCategoriesInteractor;
 import joao.pedro.productsapi.infrastructure.controllers.category.CategoryDtoMapper;
 import joao.pedro.productsapi.infrastructure.gateways.category.CategoryEntityMapper;
 import joao.pedro.productsapi.infrastructure.gateways.category.CategoryRepositoryGateway;
@@ -15,6 +16,11 @@ public class CategoryConfig {
     @Bean
     CreateCategoryInteractor createCategoryUseCase(CategoryGateway categoryGateway) {
         return new CreateCategoryInteractor(categoryGateway);
+    }
+
+    @Bean
+    ListCategoriesInteractor listCategoriesUseCase(CategoryGateway categoryGateway){
+        return new ListCategoriesInteractor(categoryGateway);
     }
 
     @Bean
