@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.domain.exceptions;
+package joao.pedro.productsapi.entity.category.exceptions;
 
 public class EntityNotFoundException extends RuntimeException {
 

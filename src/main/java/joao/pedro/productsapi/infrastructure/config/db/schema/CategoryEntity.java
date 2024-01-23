@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.infrastructure.persistence.category;
+package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

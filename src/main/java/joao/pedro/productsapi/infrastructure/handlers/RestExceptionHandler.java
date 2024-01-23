@@ -1,7 +1,7 @@
 package joao.pedro.productsapi.infrastructure.handlers;
 
-import joao.pedro.productsapi.domain.exceptions.EntityAlreadyExistsException;
-import joao.pedro.productsapi.domain.exceptions.EntityNotFoundException;
+import joao.pedro.productsapi.entity.category.exceptions.EntityAlreadyExistsException;
+import joao.pedro.productsapi.entity.category.exceptions.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
