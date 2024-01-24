@@ -28,7 +28,15 @@ public class CategoryDatabaseGateway implements CategoryGateway {
     }
 
     @Override
-    public Optional<Category> find(String name) {
+    public Optional<Category> findById(UUID id) {
+        return categoryRepository.findById(id).map(categoryEntity -> new Category(
+                categoryEntity.getId(),
+                categoryEntity.getName()
+        ));
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
         return categoryRepository.findByName(name).map(categoryEntity -> new Category(
                 categoryEntity.getId(),
                 categoryEntity.getName()
@@ -39,6 +47,13 @@ public class CategoryDatabaseGateway implements CategoryGateway {
         public Category create(Category category) {
         CategoryEntity categoryEntity = new CategoryEntity(category.getId(), category.getName());
         categoryRepository.save(categoryEntity);
+        return new Category(categoryEntity.getId(), categoryEntity.getName());
+    }
+
+    @Override
+    public Category update(Category category) {
+        var categoryEntity = new CategoryEntity(category.getId(), category.getName());
+        this.categoryRepository.save(categoryEntity);
         return new Category(categoryEntity.getId(), categoryEntity.getName());
     }
 }
