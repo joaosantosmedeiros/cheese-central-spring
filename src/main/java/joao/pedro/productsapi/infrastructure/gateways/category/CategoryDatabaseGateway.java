@@ -56,4 +56,9 @@ public class CategoryDatabaseGateway implements CategoryGateway {
         this.categoryRepository.save(categoryEntity);
         return new Category(categoryEntity.getId(), categoryEntity.getName());
     }
+
+    @Override
+    public void delete(Category category) {
+        categoryRepository.deleteById(category.getId());
+    }
 }

@@ -14,4 +14,6 @@ public interface CategoryGateway {
     Category create(Category category);
 
     Category update(Category category);
+
+    void delete(Category category);
 }
