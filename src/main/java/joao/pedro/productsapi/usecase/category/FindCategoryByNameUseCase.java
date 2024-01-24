@@ -13,7 +13,7 @@ public class FindCategoryByNameUseCase {
     }
 
     public Output execute(Input input) {
-        Optional<Category> data = this.categoryGateway.find(input.name());
+        Optional<Category> data = this.categoryGateway.findByName(input.name());
         if(data.isEmpty()){
             return new Output(false, "Category not found.", null);
         }

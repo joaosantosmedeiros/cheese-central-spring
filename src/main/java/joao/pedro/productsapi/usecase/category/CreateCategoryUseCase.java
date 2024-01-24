@@ -11,7 +11,7 @@ public class CreateCategoryUseCase {
     }
 
     public Output execute(Input input){
-        var categoryExists = categoryGateway.find(input.name());
+        var categoryExists = categoryGateway.findByName(input.name());
         if(categoryExists.isPresent()){
             return new Output(false, "Category already exists.", null);
         }
