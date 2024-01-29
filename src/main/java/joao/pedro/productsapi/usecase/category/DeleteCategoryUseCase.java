@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.usecase.category;
 
 import joao.pedro.productsapi.entity.category.gateway.CategoryGateway;
+import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 
 import java.util.UUID;
 
@@ -16,10 +17,7 @@ public class DeleteCategoryUseCase {
 
         var categoryExists = this.categoryGateway.findById(input.id());
         if(categoryExists.isEmpty()){
-            return new Output(
-                    false,
-                    "Category does not exists."
-            );
+            throw new EntityNotFoundException("Category");
         }
 
         this.categoryGateway.delete(categoryExists.get());

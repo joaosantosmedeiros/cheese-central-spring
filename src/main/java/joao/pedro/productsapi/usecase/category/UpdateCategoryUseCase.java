@@ -2,6 +2,8 @@ package joao.pedro.productsapi.usecase.category;
 
 import joao.pedro.productsapi.entity.category.gateway.CategoryGateway;
 import joao.pedro.productsapi.entity.category.model.Category;
+import joao.pedro.productsapi.entity.exceptions.EntityAlreadyExistsException;
+import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 
 import java.util.UUID;
 
@@ -15,12 +17,12 @@ public class UpdateCategoryUseCase {
     public Output execute(Input input) {
         var categoryExists = categoryGateway.findById(input.id());
         if(categoryExists.isEmpty()){
-            return new Output(false, "Category does not exists.", null);
+            throw new EntityNotFoundException("Category");
         }
 
         var categoryAlreadyInUse = categoryGateway.findByName(input.name());
         if(categoryAlreadyInUse.isPresent() && !categoryAlreadyInUse.get().getId().equals(input.id())){
-            return new Output(false, "Category name already in use.", null);
+            throw new EntityAlreadyExistsException("Category");
         }
 
         var updatedCategory = categoryGateway.update(new Category(input.id(), input.name()));

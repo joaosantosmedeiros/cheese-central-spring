@@ -1,7 +1,7 @@
 package joao.pedro.productsapi.infrastructure.handlers;
 
-import joao.pedro.productsapi.entity.category.exceptions.EntityAlreadyExistsException;
-import joao.pedro.productsapi.entity.category.exceptions.EntityNotFoundException;
+import joao.pedro.productsapi.entity.exceptions.EntityAlreadyExistsException;
+import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,17 +17,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Getter
     @Setter
     @AllArgsConstructor
-    private static class ErrorResponse {
-        private String error;
+    private static class Output {
+        private boolean status;
+        private String message;
     }
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
-    private ResponseEntity<ErrorResponse> entityAlreadyExists(EntityAlreadyExistsException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(exception.getMessage()));
+    private ResponseEntity<Output> entityAlreadyExists(EntityAlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Output(false, exception.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    private ResponseEntity<ErrorResponse> entityNotFound(EntityNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(exception.getMessage()));
+    private ResponseEntity<Output> entityNotFound(EntityNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Output(false, exception.getMessage()));
     }
 }

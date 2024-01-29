@@ -20,8 +20,7 @@ public class FindCategoryByNameController {
     public ResponseEntity<Response> findCategory(@PathVariable("name") String name) {
         var output = findCategoryByNameUseCase.execute(new Input(name));
 
-        HttpStatus httpStatus = output.status() == Boolean.FALSE ? HttpStatus.NOT_FOUND : HttpStatus.OK;
-        return ResponseEntity.status(httpStatus).body(new Response(
+        return ResponseEntity.status(HttpStatus.OK).body(new Response(
            output.status(),
            output.message(),
            output.data()

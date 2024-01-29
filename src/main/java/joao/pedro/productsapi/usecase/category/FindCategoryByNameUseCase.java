@@ -2,6 +2,7 @@ package joao.pedro.productsapi.usecase.category;
 
 import joao.pedro.productsapi.entity.category.gateway.CategoryGateway;
 import joao.pedro.productsapi.entity.category.model.Category;
+import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public class FindCategoryByNameUseCase {
     public Output execute(Input input) {
         Optional<Category> data = this.categoryGateway.findByName(input.name());
         if(data.isEmpty()){
-            return new Output(false, "Category not found.", null);
+            throw new EntityNotFoundException("Category");
         }
         return new Output(true, "Showing found category.", data.get());
     }

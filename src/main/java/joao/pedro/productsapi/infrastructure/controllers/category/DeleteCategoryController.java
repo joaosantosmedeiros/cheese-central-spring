@@ -22,9 +22,7 @@ public class DeleteCategoryController {
 
         var output = this.deleteCategoryUseCase.execute(new Input(id));
 
-        HttpStatus httpStatus = !output.status() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
-
-        return ResponseEntity.status(httpStatus).body(new Response(
+        return ResponseEntity.status(HttpStatus.OK).body(new Response(
                 output.status(),
                 output.message()
         ));

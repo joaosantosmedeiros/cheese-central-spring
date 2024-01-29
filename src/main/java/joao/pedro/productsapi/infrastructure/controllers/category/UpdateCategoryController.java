@@ -23,13 +23,9 @@ public class UpdateCategoryController {
 
     @PutMapping("/category/update/{id}")
     public ResponseEntity<Response> updateCategory(@PathVariable("id") UUID id, @RequestBody @Valid Request request){
-
         var output = this.updateCategoryUseCase.execute(new Input(id, request.name()));
 
-        HttpStatus httpStatus = !output.status() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
-        httpStatus = output.message().equals("Category name already in use.") ? HttpStatus.CONFLICT : httpStatus;
-
-        return ResponseEntity.status(httpStatus).body(new Response(
+        return ResponseEntity.status(HttpStatus.OK).body(new Response(
                 output.status(),
                 output.message(),
                 output.data()

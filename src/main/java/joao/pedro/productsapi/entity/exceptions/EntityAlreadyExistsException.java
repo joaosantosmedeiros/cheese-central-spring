@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.entity.category.exceptions;
+package joao.pedro.productsapi.entity.exceptions;
 
 public class EntityAlreadyExistsException extends RuntimeException {
 

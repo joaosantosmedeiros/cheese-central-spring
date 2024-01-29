@@ -21,9 +21,8 @@ public class CreateCategoryController {
     @PostMapping("/category/create")
     public ResponseEntity<Response> create(@RequestBody @Valid Request request){
         var output = createCategoryUseCase.execute(new Input(request.name()));
-        HttpStatus httpStatus = output.status() == Boolean.FALSE ? HttpStatus.BAD_REQUEST : HttpStatus.OK;
 
-        return ResponseEntity.status(httpStatus).body(new Response(output.status(), output.message(), output.data()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Response(output.status(), output.message(), output.data()));
     }
 
      private record Request(
