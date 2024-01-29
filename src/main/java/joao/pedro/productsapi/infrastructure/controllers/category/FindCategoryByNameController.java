@@ -1,7 +1,5 @@
 package joao.pedro.productsapi.infrastructure.controllers.category;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import joao.pedro.productsapi.entity.category.model.Category;
 import joao.pedro.productsapi.usecase.category.FindCategoryByNameUseCase;
 import joao.pedro.productsapi.usecase.category.FindCategoryByNameUseCase.Input;
