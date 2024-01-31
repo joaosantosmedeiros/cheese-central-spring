@@ -6,17 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "CATEGORY", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "CATEGORIES", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class CategoryEntity {
 
     public CategoryEntity(String name) {
+        this.name = name;
+    }
+    public CategoryEntity(UUID id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -25,4 +29,7 @@ public class CategoryEntity {
     private UUID id;
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<ProductEntity> products;
 }
