@@ -27,11 +27,7 @@ public class UpdateCategoryUseCase {
 
         var updatedCategory = categoryGateway.update(new Category(input.id(), input.name()));
 
-        return new Output(
-                true,
-                "Category updated sucessfully",
-                updatedCategory
-        );
+        return new Output(updatedCategory);
     }
 
     public record Input(
@@ -39,9 +35,5 @@ public class UpdateCategoryUseCase {
             String name
     ){}
 
-    public record Output(
-            Boolean status,
-            String message,
-            Category data
-    ){}
+    public record Output(Category data){}
 }

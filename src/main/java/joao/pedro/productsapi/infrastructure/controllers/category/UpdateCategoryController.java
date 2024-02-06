@@ -26,8 +26,8 @@ public class UpdateCategoryController {
         var output = this.updateCategoryUseCase.execute(new Input(id, request.name()));
 
         return ResponseEntity.status(HttpStatus.OK).body(new Response(
-                output.status(),
-                output.message(),
+                true,
+                "Category updated sucessfully.",
                 output.data()
         ));
     }
