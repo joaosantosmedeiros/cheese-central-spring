@@ -18,9 +18,9 @@ public class CreateCategoryUseCase {
         }
 
         var data = this.categoryGateway.create(new Category(input.name()));
-        return new Output(true, "Category created sucessfully", data);
+        return new Output(data);
     }
 
     public record Input(String name){}
-    public record Output(Boolean status, String message, Category data){}
+    public record Output(Category data){}
 }

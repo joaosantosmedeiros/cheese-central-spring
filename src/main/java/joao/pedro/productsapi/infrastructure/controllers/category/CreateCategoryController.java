@@ -22,7 +22,11 @@ public class CreateCategoryController {
     public ResponseEntity<Response> create(@RequestBody @Valid Request request){
         var output = createCategoryUseCase.execute(new Input(request.name()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new Response(output.status(), output.message(), output.data()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Response(
+                true,
+                "Category created sucessfully.",
+                output.data())
+        );
     }
 
      private record Request(
