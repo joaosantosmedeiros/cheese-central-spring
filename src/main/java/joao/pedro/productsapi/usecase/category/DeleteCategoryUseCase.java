@@ -13,7 +13,7 @@ public class DeleteCategoryUseCase {
         this.categoryGateway = categoryGateway;
     }
 
-    public Output execute(Input input) {
+    public void execute(Input input) {
 
         var categoryExists = this.categoryGateway.findById(input.id());
         if(categoryExists.isEmpty()){
@@ -21,19 +21,10 @@ public class DeleteCategoryUseCase {
         }
 
         this.categoryGateway.delete(categoryExists.get());
-
-        return new Output(
-                true,
-                "Category deleted sucessfully."
-        );
     }
 
     public record Input(
             UUID id
     ){}
 
-    public  record Output(
-            Boolean status,
-            String message
-    ){}
 }

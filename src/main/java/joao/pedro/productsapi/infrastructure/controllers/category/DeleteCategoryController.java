@@ -20,11 +20,11 @@ public class DeleteCategoryController {
     @DeleteMapping("/category/delete/{id}")
     public ResponseEntity<Object> deleteCategory(@PathVariable("id") UUID id){
 
-        var output = this.deleteCategoryUseCase.execute(new Input(id));
+        this.deleteCategoryUseCase.execute(new Input(id));
 
         return ResponseEntity.status(HttpStatus.OK).body(new Response(
-                output.status(),
-                output.message()
+                true,
+                "Category deleted sucessfully."
         ));
     }
 
