@@ -20,8 +20,8 @@ public class ListCategoriesController {
     public ResponseEntity<Response> listCategories() {
         var output = listCategoryUseCase.execute();
         return ResponseEntity.status(HttpStatus.OK).body(new Response(
-                output.status(),
-                output.message(),
+                true,
+                "Listing all categories.",
                 output.data()
         ));
     }

@@ -15,8 +15,8 @@ public class ListCategoryUseCase {
 
     public Output execute() {
         List<Category> data = this.categoryGateway.list();
-        return new Output(true, "Listing all categories.", data);
+        return new Output(data);
     }
 
-    public record Output(Boolean status, String message, List<Category> data) {}
+    public record Output(List<Category> data) {}
 }
