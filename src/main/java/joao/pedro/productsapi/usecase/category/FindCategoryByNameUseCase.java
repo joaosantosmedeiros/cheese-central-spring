@@ -18,9 +18,9 @@ public class FindCategoryByNameUseCase {
         if(data.isEmpty()){
             throw new EntityNotFoundException("Category");
         }
-        return new Output(true, "Showing found category.", data.get());
+        return new Output(data.get());
     }
 
     public record Input(String name) {}
-    public record Output(Boolean status, String message, Category data) {}
+    public record Output(Category data) {}
 }

@@ -21,9 +21,9 @@ public class FindCategoryByNameController {
         var output = findCategoryByNameUseCase.execute(new Input(name));
 
         return ResponseEntity.status(HttpStatus.OK).body(new Response(
-           output.status(),
-           output.message(),
-           output.data()
+                true,
+                "Showing found category.",
+                output.data()
         ));
     }
 
