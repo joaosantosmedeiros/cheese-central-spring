@@ -12,7 +12,6 @@ public class Product {
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
-        this.categoryId = category.getId();
         this.category = category;
     }
 
@@ -22,7 +21,6 @@ public class Product {
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
-        this.categoryId = category.getId();
         this.category = category;
     }
 
@@ -31,7 +29,6 @@ public class Product {
     private String description;
     private String imageUrl;
     private Double price;
-    private UUID categoryId;
     private Category category;
 
     public UUID getId() {
@@ -67,13 +64,6 @@ public class Product {
     }
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public UUID getCategoryId() {
-        return categoryId;
-    }
-    public void setCategoryId(UUID categoryId) {
-        this.categoryId = categoryId;
     }
 
     public Category getCategory() {
