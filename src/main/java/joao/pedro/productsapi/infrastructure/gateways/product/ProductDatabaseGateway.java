@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -34,6 +36,21 @@ public class ProductDatabaseGateway implements ProductGateway {
                     category
             );
         }).toList();
+    }
+
+    @Override
+    public Optional<Product> findById(UUID id) {
+        return productRepository.findById(id).map(productEntity -> new Product(
+                productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getImageUrl(),
+                productEntity.getDecription(),
+                productEntity.getPrice(),
+                new Category(
+                        productEntity.getCategory().getId(),
+                        productEntity.getCategory().getName()
+                )
+        ));
     }
 
     @Override
