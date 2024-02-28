@@ -73,4 +73,19 @@ public class ProductDatabaseGateway implements ProductGateway {
 
         return product;
     }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(new ProductEntity(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getImageUrl(),
+                product.getPrice(),
+                new CategoryEntity(
+                        product.getCategory().getId(),
+                        product.getCategory().getName()
+                )
+        ));
+    }
 }

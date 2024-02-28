@@ -12,4 +12,6 @@ public interface ProductGateway {
     Optional<Product> findById(UUID id);
 
     Product create(Product product);
+
+    void delete(Product product);
 }
