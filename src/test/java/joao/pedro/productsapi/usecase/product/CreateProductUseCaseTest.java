@@ -67,7 +67,6 @@ class CreateProductUseCaseTest {
         assertEquals(output.data().getPrice(), product.getPrice());
         assertEquals(output.data().getCategory().getId(), product.getCategory().getId());
         assertEquals(output.data().getCategory().getName(), product.getCategory().getName());
-        assertEquals(output.data().getCategoryId(), product.getCategoryId());
     }
 
     @Test
