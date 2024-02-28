@@ -3,6 +3,7 @@ package joao.pedro.productsapi.infrastructure.controllers.product;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import joao.pedro.productsapi.entity.product.model.Product;
 import joao.pedro.productsapi.usecase.product.CreateProductUseCase;
 import joao.pedro.productsapi.usecase.product.CreateProductUseCase.Input;
 import lombok.AllArgsConstructor;
@@ -33,13 +34,7 @@ public class CreateProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new Response(
                 true,
                 "Product created successfully.",
-                new FetchedProduct(
-                        output.data().getId(),
-                        output.data().getName(),
-                        output.data().getDescription(),
-                        output.data().getImageUrl(),
-                        output.data().getPrice(),
-                        output.data().getCategoryId())
+                output.data()
                 )
         );
     }
@@ -59,15 +54,6 @@ public class CreateProductController {
     public record Response(
             Boolean status,
             String message,
-            FetchedProduct data
-    ){}
-
-    public record FetchedProduct(
-            UUID id,
-            String name,
-            String description,
-            String imageUrl,
-            Double price,
-            UUID categoryId
+            Product data
     ){}
 }
