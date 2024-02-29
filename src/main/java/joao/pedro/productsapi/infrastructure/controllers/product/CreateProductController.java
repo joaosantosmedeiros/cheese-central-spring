@@ -21,7 +21,7 @@ public class CreateProductController {
 
     private final CreateProductUseCase createProductUseCase;
 
-    @PostMapping("/product/create")
+    @PostMapping("/product")
     public ResponseEntity<Object> create(@RequestBody @Valid Request request) {
         var output = createProductUseCase.execute(new Input(
                request.name,

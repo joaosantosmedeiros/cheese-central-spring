@@ -14,7 +14,7 @@ public class ListProductsController {
 
     private final ListProductUseCase listProductUseCase;
 
-    @GetMapping("/product/all")
+    @GetMapping("/product")
     public Response listProducts() {
         var output = listProductUseCase.execute();
 
