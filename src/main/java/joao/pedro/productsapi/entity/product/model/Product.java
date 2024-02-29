@@ -2,6 +2,7 @@ package joao.pedro.productsapi.entity.product.model;
 
 import joao.pedro.productsapi.entity.category.model.Category;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Product {
@@ -71,5 +72,18 @@ public class Product {
     }
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(this.id, product.id) && Objects.equals(this.name, product.name) && Objects.equals(this.description, product.description) && Objects.equals(this.imageUrl, product.imageUrl) && Objects.equals(this.price, product.price) && Objects.equals(this.category, product.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, imageUrl, price, category);
     }
 }
