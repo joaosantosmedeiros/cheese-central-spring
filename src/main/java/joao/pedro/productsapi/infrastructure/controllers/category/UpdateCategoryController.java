@@ -21,7 +21,7 @@ public class UpdateCategoryController {
 
     private final UpdateCategoryUseCase updateCategoryUseCase;
 
-    @PutMapping("/category/update/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity<Response> updateCategory(@PathVariable("id") UUID id, @RequestBody @Valid Request request){
         var output = this.updateCategoryUseCase.execute(new Input(id, request.name()));
 

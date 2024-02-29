@@ -16,7 +16,7 @@ public class ListCategoriesController {
 
     private final ListCategoryUseCase listCategoryUseCase;
 
-    @GetMapping("/category/all")
+    @GetMapping("/category")
     public ResponseEntity<Response> listCategories() {
         var output = listCategoryUseCase.execute();
         return ResponseEntity.status(HttpStatus.OK).body(new Response(

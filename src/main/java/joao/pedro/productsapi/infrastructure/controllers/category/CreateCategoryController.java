@@ -18,7 +18,7 @@ public class CreateCategoryController {
 
     private final CreateCategoryUseCase createCategoryUseCase;
 
-    @PostMapping("/category/create")
+    @PostMapping("/category")
     public ResponseEntity<Response> create(@RequestBody @Valid Request request){
         var output = createCategoryUseCase.execute(new Input(request.name()));
 
