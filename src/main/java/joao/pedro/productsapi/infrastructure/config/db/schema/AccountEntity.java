@@ -1,9 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,15 +26,16 @@ public class AccountEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private boolean isAdmin;
-    @Column(nullable = false)
     private boolean isDeleted;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-    public AccountEntity(String username, String email, String password, boolean isAdmin, boolean isDeleted) {
+    public AccountEntity(String username, String email, String password, boolean isDeleted, Role role) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
         this.isDeleted = isDeleted;
+        this.role = role;
     }
 }
