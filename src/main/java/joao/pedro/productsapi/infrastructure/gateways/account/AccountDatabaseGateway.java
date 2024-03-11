@@ -5,7 +5,11 @@ import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.infrastructure.config.db.repository.AccountRepository;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
+@Component
 @AllArgsConstructor
 public class AccountDatabaseGateway implements AccountGateway {
 
@@ -18,11 +22,36 @@ public class AccountDatabaseGateway implements AccountGateway {
                 account.getUsername(),
                 account.getEmail(),
                 account.getPassword(),
-                account.isAdmin(),
-                account.isDeleted()
+                account.isDeleted(),
+                account.getRole()
         );
         this.accountRepository.save(accountEntity);
 
         return account;
+    }
+
+    @Override
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username).map(accountEntity -> new Account(
+                accountEntity.getId(),
+                accountEntity.getUsername(),
+                accountEntity.getEmail(),
+                accountEntity.getPassword(),
+                accountEntity.isDeleted(),
+                accountEntity.getRole()
+        ));
+
+    }
+
+    @Override
+    public Optional<Account> findByEmail(String email) {
+        return accountRepository.findByEmail(email).map(accountEntity -> new Account(
+                accountEntity.getId(),
+                accountEntity.getUsername(),
+                accountEntity.getEmail(),
+                accountEntity.getPassword(),
+                accountEntity.isDeleted(),
+                accountEntity.getRole()
+        ));
     }
 }
