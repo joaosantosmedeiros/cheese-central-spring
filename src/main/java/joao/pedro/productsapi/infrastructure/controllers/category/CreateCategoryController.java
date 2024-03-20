@@ -29,12 +29,12 @@ public class CreateCategoryController {
         );
     }
 
-     private record Request(
+    public record Request(
             @NotBlank
             String name
     ){}
 
-    private record Response(
+    public record Response(
         Boolean status,
         String message,
         Category data
