@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.infrastructure.controllers.account;
+package joao.pedro.productsapi.infrastructure.controllers.authentication;
 
 import jakarta.validation.Valid;
 import joao.pedro.productsapi.entity.account.model.Account;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-public class CreateAccountController {
+public class RegisterController {
 
     private final CreateAccountUseCase createAccountUseCase;
 
-    @PostMapping("/account")
+    @PostMapping("/auth/register")
     public ResponseEntity<Response> createAccount(@RequestBody @Valid Request request) {
         var output = createAccountUseCase.execute(new CreateAccountUseCase.Input(
                 request.username,
