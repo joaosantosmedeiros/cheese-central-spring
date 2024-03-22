@@ -7,6 +7,7 @@ import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,6 +29,20 @@ public class AccountDatabaseGateway implements AccountGateway {
         this.accountRepository.save(accountEntity);
 
         return account;
+    }
+
+    @Override
+    public List<Account> list() {
+        return accountRepository.findAll().stream().map(accountEntity -> {
+            return new Account(
+                    accountEntity.getId(),
+                    accountEntity.getUsername(),
+                    accountEntity.getEmail(),
+                    accountEntity.getPassword(),
+                    accountEntity.isDeleted(),
+                    accountEntity.getRole()
+            );
+        }).toList();
     }
 
     @Override
