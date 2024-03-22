@@ -31,14 +31,19 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/product/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/product/**").hasAnyRole("ADMIN", "ROOT")
                         .requestMatchers(HttpMethod.PUT, "/product/**").hasAnyRole("ADMIN", "ROOT")
                         .requestMatchers(HttpMethod.DELETE, "/product/**").hasAnyRole("ADMIN", "ROOT")
+
                         .requestMatchers(HttpMethod.GET, "/category/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/category/**").hasAnyRole("ADMIN", "ROOT")
                         .requestMatchers(HttpMethod.PUT, "/category/**").hasAnyRole("ADMIN", "ROOT")
                         .requestMatchers(HttpMethod.DELETE, "/category/**").hasAnyRole("ADMIN", "ROOT")
+
+                        .requestMatchers(HttpMethod.GET, "/account").hasAnyRole("ADMIN", "ROOT")
+
                         .anyRequest()
                         .authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
