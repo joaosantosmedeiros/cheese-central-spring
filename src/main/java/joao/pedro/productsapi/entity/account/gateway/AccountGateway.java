@@ -10,4 +10,5 @@ public interface AccountGateway {
     List<Account> list();
     Optional<Account> findByUsername(String username);
     Optional<Account> findByEmail(String email);
+    void delete(Account account);
 }

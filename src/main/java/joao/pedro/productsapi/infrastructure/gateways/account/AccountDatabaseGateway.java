@@ -69,4 +69,18 @@ public class AccountDatabaseGateway implements AccountGateway {
                 accountEntity.getRole()
         ));
     }
+
+    @Override
+    public void delete(Account account) {
+        AccountEntity accountEntity = new AccountEntity(
+                account.getId(),
+                account.getUsername(),
+                account.getEmail(),
+                account.getPassword(),
+                true,
+                account.getRole()
+        );
+
+        accountRepository.save(accountEntity);
+    }
 }
