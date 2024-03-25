@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/category/**").hasAnyRole("ADMIN", "ROOT")
 
                         .requestMatchers(HttpMethod.GET, "/account").hasAnyRole("ADMIN", "ROOT")
+                        .requestMatchers(HttpMethod.GET, "/account/**").hasAnyRole("USER", "ADMIN", "ROOT")
 
                         .anyRequest()
                         .authenticated())
