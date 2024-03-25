@@ -17,6 +17,10 @@ public class FindAccountByEmailUseCase {
     public Output execute(Input input) {
         Account account = accountGateway.findByEmail(input.email).orElseThrow(() -> new EntityNotFoundException("Account"));
 
+        if(account.isDeleted()){
+            throw new EntityNotFoundException("Account");
+        }
+
         return new Output(account);
     }
 
