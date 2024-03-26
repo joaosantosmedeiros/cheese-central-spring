@@ -2,6 +2,7 @@ package joao.pedro.productsapi.infrastructure.handlers;
 
 import joao.pedro.productsapi.entity.exceptions.EntityAlreadyExistsException;
 import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
+import joao.pedro.productsapi.entity.exceptions.NotAuthorizedException;
 import joao.pedro.productsapi.entity.exceptions.ObjectInUseException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ObjectInUseException.class)
     private ResponseEntity<Output> objectInUse(ObjectInUseException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new Output(false, exception.getMessage()));
+    }
+
+    @ExceptionHandler(NotAuthorizedException.class)
+    private ResponseEntity<Output> notAuthorized(NotAuthorizedException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Output(false, exception.getMessage()));
     }
 
 }
