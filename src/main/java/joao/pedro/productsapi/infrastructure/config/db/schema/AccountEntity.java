@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +43,15 @@ public class AccountEntity implements UserDetails {
         this.password = password;
         this.isDeleted = isDeleted;
         this.role = role;
+    }
+
+    public AccountEntity(Account account) {
+        this.id = account.getId();
+        this.username = account.getUsername();
+        this.email = account.getEmail();
+        this.password = account.getPassword();
+        this.isDeleted = account.isDeleted();
+        this.role = account.getRole();
     }
 
     @Override
