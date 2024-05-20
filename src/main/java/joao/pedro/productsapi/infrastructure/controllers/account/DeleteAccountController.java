@@ -17,14 +17,10 @@ public class DeleteAccountController {
 
     private DeleteAccountUseCase deleteAccountUseCase;
 
-    @DeleteMapping("/account/{email}")
+    @DeleteMapping("/account")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAccount(@PathVariable(value = "email") String email) {
+    public void deleteAccount() {
         var tokenEmail = ((AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
-        if(!tokenEmail.equals(email)){
-            throw new NotAuthorizedException();
-        }
-
-        deleteAccountUseCase.execute(new DeleteAccountUseCase.Input(email));
+        deleteAccountUseCase.execute(new DeleteAccountUseCase.Input(tokenEmail));
     }
 }
