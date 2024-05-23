@@ -2,13 +2,18 @@ package joao.pedro.productsapi.infrastructure.gateways.account;
 
 import joao.pedro.productsapi.entity.account.gateway.AccountGateway;
 import joao.pedro.productsapi.entity.account.model.Account;
+import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.infrastructure.config.db.repository.AccountRepository;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
+import joao.pedro.productsapi.infrastructure.config.db.schema.CartEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -24,7 +29,8 @@ public class AccountDatabaseGateway implements AccountGateway {
                 account.getEmail(),
                 account.getPassword(),
                 account.isDeleted(),
-                account.getRole()
+                account.getRole(),
+                Arrays.asList()
         );
         this.accountRepository.save(accountEntity);
 
@@ -40,7 +46,8 @@ public class AccountDatabaseGateway implements AccountGateway {
                     accountEntity.getEmail(),
                     accountEntity.getPassword(),
                     accountEntity.isDeleted(),
-                    accountEntity.getRole()
+                    accountEntity.getRole(),
+                    List.of()
             );
         }).toList();
     }
@@ -53,7 +60,8 @@ public class AccountDatabaseGateway implements AccountGateway {
                 accountEntity.getEmail(),
                 accountEntity.getPassword(),
                 accountEntity.isDeleted(),
-                accountEntity.getRole()
+                accountEntity.getRole(),
+                List.of()
         ));
 
     }
@@ -66,7 +74,21 @@ public class AccountDatabaseGateway implements AccountGateway {
                 accountEntity.getEmail(),
                 accountEntity.getPassword(),
                 accountEntity.isDeleted(),
-                accountEntity.getRole()
+                accountEntity.getRole(),
+                List.of()
+        ));
+    }
+
+    @Override
+    public Optional<Account> findById(UUID id) {
+        return accountRepository.findById(id).map(accountEntity -> new Account(
+                accountEntity.getId(),
+                accountEntity.getUsername(),
+                accountEntity.getEmail(),
+                accountEntity.getPassword(),
+                accountEntity.isDeleted(),
+                accountEntity.getRole(),
+                List.of()
         ));
     }
 
@@ -78,8 +100,15 @@ public class AccountDatabaseGateway implements AccountGateway {
                 account.getEmail(),
                 account.getPassword(),
                 true,
-                account.getRole()
+                account.getRole(),
+                Arrays.asList()
         );
+
+        accountEntity.setCartEntities(account.getCarts().stream().map(cart -> new CartEntity(
+                cart.getId(),
+                cart.isActive(),
+                accountEntity
+        )).collect(Collectors.toList()));
 
         accountRepository.save(accountEntity);
     }
