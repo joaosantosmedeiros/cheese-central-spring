@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +44,8 @@ class CreateAccountUseCaseTest {
                 "mail@mail.com",
                 "any_pass",
                 false,
-                Role.USER
+                Role.USER,
+                List.of()
         );
 
         when(accountGateway.findByEmail(account.getEmail())).thenReturn(Optional.empty());
@@ -69,7 +71,8 @@ class CreateAccountUseCaseTest {
                 "mail@mail.com",
                 "any_pass",
                 false,
-                Role.USER
+                Role.USER,
+                List.of()
         );
 
         when(accountGateway.findByEmail(account.getEmail())).thenReturn(Optional.of(account));
@@ -93,7 +96,8 @@ class CreateAccountUseCaseTest {
                 "mail@mail.com",
                 "any_pass",
                 false,
-                Role.USER
+                Role.USER,
+                List.of()
         );
 
         when(accountGateway.findByEmail(account.getEmail())).thenReturn(Optional.empty());

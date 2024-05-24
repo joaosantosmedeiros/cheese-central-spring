@@ -6,6 +6,8 @@ import joao.pedro.productsapi.entity.enums.Role;
 import joao.pedro.productsapi.entity.exceptions.ObjectInUseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+
 public class CreateAccountUseCase {
 
     private final AccountGateway accountGateway;
@@ -35,7 +37,8 @@ public class CreateAccountUseCase {
                 input.email,
                 encodedPassword,
                 false,
-                Role.USER
+                Role.USER,
+                Arrays.asList()
         );
 
         accountGateway.create(account);
