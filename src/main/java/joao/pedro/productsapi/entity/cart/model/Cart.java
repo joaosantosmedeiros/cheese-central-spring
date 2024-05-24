@@ -1,27 +1,34 @@
 package joao.pedro.productsapi.entity.cart.model;
 
+import joao.pedro.productsapi.entity.account.model.Account;
+
+import java.util.Objects;
 import java.util.UUID;
 
 public class Cart {
     private UUID id;
     private boolean isActive;
-    private UUID accountId;
+    private Account account;
 
-    public Cart(UUID id, boolean isActive, UUID accountId) {
+    public Cart(UUID id, boolean isActive, Account account) {
         this.id = id;
         this.isActive = isActive;
-        this.accountId = accountId;
+        this.account = account;
     }
 
 
-    public Cart(boolean isActive, UUID accountId) {
+    public Cart(boolean isActive, Account account) {
         this.id = UUID.randomUUID();
         this.isActive = isActive;
-        this.accountId = accountId;
+        this.account = account;
     }
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public boolean isActive() {
@@ -32,11 +39,24 @@ public class Cart {
         isActive = active;
     }
 
-    public UUID getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(UUID accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return isActive == cart.isActive && Objects.equals(id, cart.id) && Objects.equals(account, cart.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isActive, account);
     }
 }

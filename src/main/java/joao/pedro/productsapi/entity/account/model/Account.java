@@ -1,7 +1,9 @@
 package joao.pedro.productsapi.entity.account.model;
 
+import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.entity.enums.Role;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,23 +15,26 @@ public class Account {
     private String password;
     private final Role role;
     private boolean isDeleted;
+    private List<Cart> carts;
 
-    public Account(String username, String email, String password, boolean isDeleted, Role role) {
+    public Account(String username, String email, String password, boolean isDeleted, Role role, List<Cart> carts) {
         this.id = UUID.randomUUID();
         this.username = username;
         this.email = email;
         this.password = password;
         this.isDeleted = isDeleted;
         this.role = role;
+        this.carts = carts;
     }
 
-    public Account(UUID id, String username, String email, String password, boolean isDeleted, Role role) {
+    public Account(UUID id, String username, String email, String password, boolean isDeleted, Role role, List<Cart> carts) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.isDeleted = isDeleted;
         this.role = role;
+        this.carts = carts;
     }
 
     public UUID getId() {
@@ -66,6 +71,14 @@ public class Account {
     }
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
     @Override
