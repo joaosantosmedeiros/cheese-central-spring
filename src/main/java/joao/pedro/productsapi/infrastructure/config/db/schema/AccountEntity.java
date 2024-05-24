@@ -37,6 +37,9 @@ public class AccountEntity implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "account")
+    List<CartEntity> carts;
+
     public AccountEntity(String username, String email, String password, boolean isDeleted, Role role) {
         this.username = username;
         this.email = email;

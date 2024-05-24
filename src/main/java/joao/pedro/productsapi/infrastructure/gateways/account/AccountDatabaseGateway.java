@@ -2,7 +2,6 @@ package joao.pedro.productsapi.infrastructure.gateways.account;
 
 import joao.pedro.productsapi.entity.account.gateway.AccountGateway;
 import joao.pedro.productsapi.entity.account.model.Account;
-import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.infrastructure.config.db.repository.AccountRepository;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import joao.pedro.productsapi.infrastructure.config.db.schema.CartEntity;
@@ -104,7 +103,7 @@ public class AccountDatabaseGateway implements AccountGateway {
                 Arrays.asList()
         );
 
-        accountEntity.setCartEntities(account.getCarts().stream().map(cart -> new CartEntity(
+        accountEntity.setCarts(account.getCarts().stream().map(cart -> new CartEntity(
                 cart.getId(),
                 cart.isActive(),
                 accountEntity
