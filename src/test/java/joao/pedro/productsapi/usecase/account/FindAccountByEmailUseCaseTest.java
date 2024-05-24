@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +35,7 @@ class FindAccountByEmailUseCaseTest {
     @Test
     @DisplayName("It should return an account correctly")
     void findAccountByEmailSuccess() {
-        Account account = new Account("name", "email", "password", false, Role.USER);
+        Account account = new Account("name", "email", "password", false, Role.USER, List.of());
         when(accountGateway.findByEmail(account.getEmail())).thenReturn(Optional.of(account));
 
         var output =  findAccountByEmailUseCase.execute(new FindAccountByEmailUseCase.Input(account.getEmail()));
@@ -57,7 +58,7 @@ class FindAccountByEmailUseCaseTest {
     @Test
     @DisplayName("It should throw if a found account is deleted")
     void findAccountByEmailDeletedError() {
-        Account account = new Account("name", "email", "password", true, Role.USER);
+        Account account = new Account("name", "email", "password", true, Role.USER, List.of());
         when(accountGateway.findByEmail(account.getEmail())).thenReturn(Optional.of(account));
 
         var thrown = assertThrows(EntityNotFoundException.class, () -> {
