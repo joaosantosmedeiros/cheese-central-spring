@@ -11,9 +11,7 @@ public interface CartGateway {
 
     Optional<Cart> findById(UUID id);
 
-    Optional<Cart> findByAccountId(UUID accountId);
-
-    List<Cart> findAllByAccountId(UUID accountId);
+    List<Cart> findByAccountId(UUID accountId);
 
     void delete(Cart cart);
 }
