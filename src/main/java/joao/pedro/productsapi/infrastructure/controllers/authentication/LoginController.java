@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class LoginController {
@@ -32,7 +34,8 @@ public class LoginController {
                 accountEntity.getEmail(),
                 accountEntity.getPassword(),
                 false,
-                accountEntity.getRole()
+                accountEntity.getRole(),
+                List.of()
         ));
 
         return ResponseEntity.status(HttpStatus.OK).body(new Response(
