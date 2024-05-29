@@ -17,7 +17,6 @@ import java.util.UUID;
 public class CartEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(nullable = false)
     private boolean isActive;
