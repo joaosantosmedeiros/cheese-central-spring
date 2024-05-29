@@ -46,6 +46,23 @@ public class CartDatabaseGateway implements CartGateway {
     }
 
     @Override
+    public Optional<Cart> findActiveByAccountId(UUID id) {
+        return cartRepository.findByAccountIdAndIsActiveTrue(id).map(cartEntity -> new Cart(
+                cartEntity.getId(),
+                cartEntity.isActive(),
+                new Account(
+                        cartEntity.getAccount().getId(),
+                        cartEntity.getAccount().getUsername(),
+                        cartEntity.getAccount().getEmail(),
+                        cartEntity.getAccount().getPassword(),
+                        cartEntity.getAccount().isDeleted(),
+                        cartEntity.getAccount().getRole(),
+                        List.of()
+                )
+        ));
+    }
+
+    @Override
     public List<Cart> findByAccountId(UUID accountId) {
         return cartRepository.findByAccountId(accountId).stream().map(cartEntity -> new Cart(
                 cartEntity.getId(),
