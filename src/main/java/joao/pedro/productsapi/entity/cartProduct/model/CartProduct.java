@@ -1,29 +1,36 @@
 package joao.pedro.productsapi.entity.cartProduct.model;
 
+import joao.pedro.productsapi.entity.cart.model.Cart;
+import joao.pedro.productsapi.entity.product.model.Product;
+
 import java.util.UUID;
 
 public class CartProduct {
     private UUID id;
     private int amount;
-    private UUID cartId;
-    private UUID productId;
+    private Cart cart;
+    private Product product;
 
-    public CartProduct(UUID id, int amount, UUID cartId, UUID productId) {
+    public CartProduct(UUID id, int amount, Cart cart, Product product) {
         this.id = id;
         this.amount = amount;
-        this.cartId = cartId;
-        this.productId = productId;
+        this.cart = cart;
+        this.product = product;
     }
 
-    public CartProduct(int amount, UUID cartId, UUID productId) {
+    public CartProduct(int amount, Cart cart, Product product) {
         this.id = UUID.randomUUID();
         this.amount = amount;
-        this.cartId = cartId;
-        this.productId = productId;
+        this.cart = cart;
+        this.product = product;
     }
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public int getAmount() {
@@ -34,19 +41,19 @@ public class CartProduct {
         this.amount = amount;
     }
 
-    public UUID getCartId() {
-        return cartId;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCartId(UUID cartId) {
-        this.cartId = cartId;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
-    public UUID getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(UUID productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
