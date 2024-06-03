@@ -81,6 +81,21 @@ public class CartDatabaseGateway implements CartGateway {
 
     @Override
     public void delete(Cart cart) {
+        CartEntity cartEntity = new CartEntity(
+                cart.getId(),
+                cart.isActive(),
+                new AccountEntity(
+                        cart.getAccount().getId(),
+                        cart.getAccount().getUsername(),
+                        cart.getAccount().getEmail(),
+                        cart.getAccount().getPassword(),
+                        cart.getAccount().isDeleted(),
+                        cart.getAccount().getRole(),
+                        List.of()
+                )
+        );
 
+        cartEntity.setActive(false);
+        cartRepository.save(cartEntity);
     }
 }
