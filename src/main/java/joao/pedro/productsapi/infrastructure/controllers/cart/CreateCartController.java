@@ -7,6 +7,7 @@ import joao.pedro.productsapi.entity.cart.model.FetchedCart;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import joao.pedro.productsapi.usecase.account.FindAccountByEmailUseCase;
 import joao.pedro.productsapi.usecase.cart.CreateCartUseCase;
+import joao.pedro.productsapi.usecase.cartProduct.CreateCartProductUseCase;
 import joao.pedro.productsapi.usecase.product.FindProductByIdUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class CreateCartController {
     private FindProductByIdUseCase findProductByIdUseCase;
     private FindAccountByEmailUseCase findAccountByEmailUseCase;
     private CreateCartUseCase createCartUseCase;
+    private CreateCartProductUseCase createCartProductUseCase;
 
     @PostMapping("/cart")
     public ResponseEntity<Response> create(@RequestBody @Valid Request request) {
@@ -32,6 +34,8 @@ public class CreateCartController {
         var account = findAccountByEmailUseCase.execute(new FindAccountByEmailUseCase.Input(tokenEmail)).data();
         var product = findProductByIdUseCase.execute(new FindProductByIdUseCase.Input(request.productId)).data();
         var cart = createCartUseCase.execute(new CreateCartUseCase.Input(product, account, request.amount)).data();
+
+        createCartProductUseCase.execute(new CreateCartProductUseCase.Input(request.amount, cart, product));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new Response(
                 "Cart created successfully",
