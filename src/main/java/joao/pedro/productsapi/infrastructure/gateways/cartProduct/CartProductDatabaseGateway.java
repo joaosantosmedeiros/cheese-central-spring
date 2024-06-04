@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -43,7 +44,8 @@ public class CartProductDatabaseGateway implements CartProductGateway {
 
     @Override
     public List<CartProduct> findByCartId(UUID cartId) {
-        return null;
+        return repository.findByCartId(cartId).stream().map(this::toCartProduct)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +57,7 @@ public class CartProductDatabaseGateway implements CartProductGateway {
 
     @Override
     public void delete(CartProduct cartProduct) {
-
+        repository.delete(toCartProductEntity(cartProduct));
     }
 
     private CartProduct toCartProduct(CartProductEntity cartProductEntity){
