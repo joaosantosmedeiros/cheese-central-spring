@@ -38,7 +38,7 @@ public class CartProductDatabaseGateway implements CartProductGateway {
 
     @Override
     public Optional<CartProduct> findById(UUID id) {
-        return Optional.empty();
+        return repository.findById(id).map(this::toCartProduct);
     }
 
     @Override
@@ -48,7 +48,9 @@ public class CartProductDatabaseGateway implements CartProductGateway {
 
     @Override
     public CartProduct update(CartProduct cartProduct) {
-        return null;
+        CartProductEntity cartProductEntity = toCartProductEntity(cartProduct);
+        repository.save(cartProductEntity);
+        return cartProduct;
     }
 
     @Override
