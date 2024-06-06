@@ -45,10 +45,10 @@ class CreateCartUseCaseTest {
                 Role.USER,
                 List.of()
         );
-        var activeCart = new Cart(true, account);
+        var activeCart = new Cart(true, account, null);
 
         when(cartGateway.findByAccountId(account.getId())).thenReturn(List.of(
-                new Cart(false, account),
+                new Cart(false, account, null),
                 activeCart
         ));
 
@@ -72,7 +72,7 @@ class CreateCartUseCaseTest {
                 Role.USER,
                 List.of()
         );
-        var carts = List.of(new Cart(false, account), new Cart(false, account));
+        var carts = List.of(new Cart(false, account, null), new Cart(false, account, null));
 
         when(cartGateway.findByAccountId(account.getId())).thenReturn(carts);
 

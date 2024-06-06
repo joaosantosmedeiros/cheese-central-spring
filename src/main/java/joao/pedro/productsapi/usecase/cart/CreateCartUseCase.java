@@ -23,7 +23,7 @@ public class CreateCartUseCase {
             }
         }
 
-        return new Output(cartGateway.create(new Cart(true, input.account)));
+        return new Output(cartGateway.create(new Cart(true, input.account, null)));
     }
 
     public record Input(Product product, Account account, int amount){}
