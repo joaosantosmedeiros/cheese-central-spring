@@ -106,7 +106,8 @@ public class AccountDatabaseGateway implements AccountGateway {
         accountEntity.setCarts(account.getCarts().stream().map(cart -> new CartEntity(
                 cart.getId(),
                 cart.isActive(),
-                accountEntity
+                accountEntity,
+                null
         )).collect(Collectors.toList()));
 
         accountRepository.save(accountEntity);

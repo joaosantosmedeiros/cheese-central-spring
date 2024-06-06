@@ -70,6 +70,7 @@ public class CartProductDatabaseGateway implements CartProductGateway {
                 new Cart(
                         cartEntity.getId(),
                         cartEntity.isActive(),
+                        null,
                         null
                 ),
                 new Product(
@@ -96,6 +97,7 @@ public class CartProductDatabaseGateway implements CartProductGateway {
                 new CartEntity(
                         cart.getId(),
                         cart.isActive(),
+                        null,
                         null
                 ),
                 new ProductEntity(

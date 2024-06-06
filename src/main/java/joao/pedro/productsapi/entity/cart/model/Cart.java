@@ -1,62 +1,31 @@
 package joao.pedro.productsapi.entity.cart.model;
 
 import joao.pedro.productsapi.entity.account.model.Account;
+import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
+import lombok.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
 public class Cart {
     private UUID id;
     private boolean isActive;
     private Account account;
-
-    public Cart(UUID id, boolean isActive, Account account) {
-        this.id = id;
-        this.isActive = isActive;
-        this.account = account;
-    }
+    private List<CartProduct> cartProducts;
 
 
-    public Cart(boolean isActive, Account account) {
+    public Cart(boolean isActive, Account account, List<CartProduct> cartProducts) {
         this.id = UUID.randomUUID();
         this.isActive = isActive;
         this.account = account;
+        this.cartProducts = cartProducts;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cart cart = (Cart) o;
-        return isActive == cart.isActive && Objects.equals(id, cart.id) && Objects.equals(account, cart.account);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, isActive, account);
-    }
 }

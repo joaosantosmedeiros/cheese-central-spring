@@ -33,7 +33,8 @@ public class CartDatabaseGateway implements CartGateway {
                         cart.getAccount().isDeleted(),
                         cart.getAccount().getRole(),
                         List.of()
-                )
+                ),
+                null
         );
 
         cartRepository.save(cartEntity);
@@ -58,7 +59,8 @@ public class CartDatabaseGateway implements CartGateway {
                         cartEntity.getAccount().isDeleted(),
                         cartEntity.getAccount().getRole(),
                         List.of()
-                )
+                ),
+                null
         ));
     }
 
@@ -75,7 +77,8 @@ public class CartDatabaseGateway implements CartGateway {
                         cartEntity.getAccount().isDeleted(),
                         cartEntity.getAccount().getRole(),
                         List.of()
-                )
+                ),
+                null
         )).collect(Collectors.toList());
     }
 
@@ -92,7 +95,8 @@ public class CartDatabaseGateway implements CartGateway {
                         cart.getAccount().isDeleted(),
                         cart.getAccount().getRole(),
                         List.of()
-                )
+                ),
+                null
         );
 
         cartEntity.setActive(false);
