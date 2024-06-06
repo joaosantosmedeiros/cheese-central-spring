@@ -29,5 +29,8 @@ public class PaymentEntity {
     @Column(nullable = true)
     private LocalDateTime paymentDate;
 
+    @OneToOne
+    @JoinColumn(name = "orderId")
+    OrderEntity order;
 
 }
