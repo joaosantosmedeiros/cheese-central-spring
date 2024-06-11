@@ -2,6 +2,8 @@ package joao.pedro.productsapi.entity.order.model;
 
 import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.entity.payment.model.Payment;
+import joao.pedro.productsapi.infrastructure.config.db.schema.OrderEntity;
+import joao.pedro.productsapi.infrastructure.config.db.schema.PaymentEntity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -58,6 +60,26 @@ public class Order {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public OrderEntity toOrderEntity(){
+        Payment payment = this.payment;
+        Account account = this.account;
+        return new OrderEntity(
+                this.id,
+                this.date,
+                new PaymentEntity(
+                        payment.getId(),
+                        payment.getPaymentStatus(),
+                        payment.getPrice(),
+                        payment.getDiscount(),
+                        payment.getFinalPrice(),
+                        payment.getPaymentDate(),
+                        null
+                ),
+                account.toAccountEntity()
+
+        );
     }
 
     @Override
