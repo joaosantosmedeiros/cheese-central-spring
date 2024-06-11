@@ -94,4 +94,16 @@ public class AccountEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Account toAccount() {
+        return new Account(
+                this.id,
+                this.username,
+                this.email,
+                this.password,
+                this.isDeleted,
+                this.role,
+                null
+        );
+    }
 }
