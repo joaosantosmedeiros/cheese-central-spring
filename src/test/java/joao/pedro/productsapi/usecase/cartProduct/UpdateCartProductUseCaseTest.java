@@ -44,6 +44,7 @@ class UpdateCartProductUseCaseTest {
                 5,
                 new Cart(
                         true,
+                        null,
                         null
                 ),
                 new Product("name", "desc", "image", 12.2, null)
@@ -102,6 +103,7 @@ class UpdateCartProductUseCaseTest {
                 5,
                 new Cart(
                         true,
+                        null,
                         null
                 ),
                 new Product("name", "desc", "image", 12.2, null)

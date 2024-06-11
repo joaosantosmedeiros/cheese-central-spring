@@ -2,6 +2,7 @@ package joao.pedro.productsapi.usecase.cartProduct;
 
 import joao.pedro.productsapi.entity.cartProduct.gateway.CartProductGateway;
 import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
+import joao.pedro.productsapi.entity.cartProduct.model.FetchedCartProduct;
 import joao.pedro.productsapi.entity.exceptions.BadRequestException;
 import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 import joao.pedro.productsapi.entity.exceptions.NotAuthorizedException;
@@ -33,9 +34,9 @@ public class UpdateCartProductUseCase {
         CartProduct cartProduct = cartProductExists.get();
         cartProduct.setAmount(input.amount);
 
-        return new Output(cartProductGateway.update(cartProduct));
+        return new Output(new FetchedCartProduct(cartProductGateway.update(cartProduct)));
     }
 
     public record Input(UUID cartProductId, UUID cartId, int amount) {}
-    public record Output(CartProduct data) {}
+    public record Output(FetchedCartProduct data) {}
 }
