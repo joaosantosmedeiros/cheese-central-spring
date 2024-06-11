@@ -1,9 +1,10 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.order.model.Order;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +20,7 @@ public class OrderEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @OneToOne
     @JoinColumn(name = "paymentId")
@@ -28,4 +29,13 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "accountId")
     private AccountEntity account;
+
+    public Order toOrder() {
+        return new Order(
+                this.id,
+                this.account.toAccount(),
+                this.getDate(),
+                this.payment.toPayment()
+        );
+    }
 }
