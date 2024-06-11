@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.category.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +33,8 @@ public class CategoryEntity {
 
     @OneToMany(mappedBy = "category")
     private List<ProductEntity> products;
+
+    public Category toCategory() {
+        return new Category(this.id, this.name);
+    }
 }
