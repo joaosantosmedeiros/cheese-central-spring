@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.payment.model.Payment;
 import joao.pedro.productsapi.entity.payment.model.PaymentStatus;
 import lombok.*;
 
@@ -33,4 +34,15 @@ public class PaymentEntity {
     @JoinColumn(name = "orderId")
     OrderEntity order;
 
+    public Payment toPayment() {
+        return new Payment(
+                this.id,
+                this.paymentStatus,
+                this.price,
+                this.discount,
+                this.finalPrice,
+                this.paymentDate,
+                this.order.toOrder()
+        );
+    }
 }
