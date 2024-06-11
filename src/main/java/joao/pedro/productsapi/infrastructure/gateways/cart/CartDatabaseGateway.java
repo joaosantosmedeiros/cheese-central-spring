@@ -1,11 +1,11 @@
 package joao.pedro.productsapi.infrastructure.gateways.cart;
 
-import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.entity.cart.gateway.CartGateway;
 import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.infrastructure.config.db.repository.CartRepository;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import joao.pedro.productsapi.infrastructure.config.db.schema.CartEntity;
+import joao.pedro.productsapi.infrastructure.config.db.schema.CartProductEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,15 +25,7 @@ public class CartDatabaseGateway implements CartGateway {
         CartEntity cartEntity = new CartEntity(
                 cart.getId(),
                 cart.isActive(),
-                new AccountEntity(
-                        cart.getAccount().getId(),
-                        cart.getAccount().getUsername(),
-                        cart.getAccount().getEmail(),
-                        cart.getAccount().getPassword(),
-                        cart.getAccount().isDeleted(),
-                        cart.getAccount().getRole(),
-                        List.of()
-                ),
+                cart.getAccount().toAccountEntity(),
                 null
         );
 
@@ -51,16 +43,8 @@ public class CartDatabaseGateway implements CartGateway {
         return cartRepository.findByAccountIdAndIsActiveTrue(id).map(cartEntity -> new Cart(
                 cartEntity.getId(),
                 cartEntity.isActive(),
-                new Account(
-                        cartEntity.getAccount().getId(),
-                        cartEntity.getAccount().getUsername(),
-                        cartEntity.getAccount().getEmail(),
-                        cartEntity.getAccount().getPassword(),
-                        cartEntity.getAccount().isDeleted(),
-                        cartEntity.getAccount().getRole(),
-                        List.of()
-                ),
-                null
+                cartEntity.getAccount().toAccount(),
+                cartEntity.toCart().getCartProducts()
         ));
     }
 
@@ -69,16 +53,8 @@ public class CartDatabaseGateway implements CartGateway {
         return cartRepository.findByAccountId(accountId).stream().map(cartEntity -> new Cart(
                 cartEntity.getId(),
                 cartEntity.isActive(),
-                new Account(
-                        cartEntity.getAccount().getId(),
-                        cartEntity.getAccount().getUsername(),
-                        cartEntity.getAccount().getEmail(),
-                        cartEntity.getAccount().getPassword(),
-                        cartEntity.getAccount().isDeleted(),
-                        cartEntity.getAccount().getRole(),
-                        List.of()
-                ),
-                null
+                cartEntity.getAccount().toAccount(),
+                cartEntity.getCartProducts().stream().map(CartProductEntity::toCartProduct).collect(Collectors.toList())
         )).collect(Collectors.toList());
     }
 
@@ -87,15 +63,7 @@ public class CartDatabaseGateway implements CartGateway {
         CartEntity cartEntity = new CartEntity(
                 cart.getId(),
                 cart.isActive(),
-                new AccountEntity(
-                        cart.getAccount().getId(),
-                        cart.getAccount().getUsername(),
-                        cart.getAccount().getEmail(),
-                        cart.getAccount().getPassword(),
-                        cart.getAccount().isDeleted(),
-                        cart.getAccount().getRole(),
-                        List.of()
-                ),
+                cart.getAccount().toAccountEntity(),
                 null
         );
 
