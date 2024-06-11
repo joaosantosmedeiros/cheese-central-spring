@@ -36,7 +36,7 @@ class DeleteCartUseCaseTest {
     @Test
     @DisplayName("It should delete a cart correctly")
     public void deleteCartSuccess() {
-        Cart cart = new Cart(true, null);
+        Cart cart = new Cart(true, null, null);
         when(cartGateway.findActiveByAccountId(any())).thenReturn(Optional.of(cart));
 
         deleteCartUseCase.execute(new DeleteCartUseCase.Input(UUID.randomUUID()));

@@ -44,8 +44,9 @@ class FindActiveCartByAccountIdUseCaseTest {
                 "password",
                 false,
                 Role.USER,
-                List.of()
-        ));
+                List.of()),
+                null
+        );
         when(cartGateway.findActiveByAccountId(cart.getAccount().getId())).thenReturn(Optional.of(cart));
 
         var foundCart = findActiveCartByAccountIdUseCase.execute(

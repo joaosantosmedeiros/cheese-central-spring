@@ -38,9 +38,9 @@ class FindCartProductByCartUseCaseTest {
     @DisplayName("It should list cart products correctly")
     public void findCartProductsSuccess() {
         var cartProductList = List.of(
-                new CartProduct(UUID.randomUUID(), 2, new Cart(true, null), new Product("name", "desc", "image", 12d, null)),
-                new CartProduct(UUID.randomUUID(), 3, new Cart(true, null), new Product("name", "desc", "image", 12d, null)),
-                new CartProduct(UUID.randomUUID(), 4, new Cart(true, null), new Product("name", "desc", "image", 12d, null))
+                new CartProduct(UUID.randomUUID(), 2, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null)),
+                new CartProduct(UUID.randomUUID(), 3, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null)),
+                new CartProduct(UUID.randomUUID(), 4, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null))
         );
         var fetchedProductsList = new FetchedCartProduct[]{
                 new FetchedCartProduct(cartProductList.get(0)),

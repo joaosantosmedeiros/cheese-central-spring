@@ -40,7 +40,7 @@ class DeleteCartProductUseCaseTest {
     public void deleteCartProductSuccess() {
         CartProduct cartProduct = new CartProduct(
                 2,
-                new Cart(true, null),
+                new Cart(true, null, null),
                 new Product("name", "desc", "imageUrl", 12d, null));
 
         when(cartProductGateway.findById(cartProduct.getId())).thenReturn(Optional.of(cartProduct));
@@ -68,7 +68,7 @@ class DeleteCartProductUseCaseTest {
     public void deleteCartProductErrorUnauthorized() {
         CartProduct cartProduct = new CartProduct(
                 2,
-                new Cart(true, null),
+                new Cart(true, null, null),
                 new Product("name", "desc", "imageUrl", 12d, null));
 
         when(cartProductGateway.findById(cartProduct.getId())).thenReturn(Optional.of(cartProduct));

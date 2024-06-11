@@ -37,7 +37,7 @@ class CreateCartProductUseCaseTest {
     @Test
     @DisplayName("It should create a cart product successfully")
     public void createCartProductSuccess() {
-        var cart = new Cart(true, null);
+        var cart = new Cart(true, null, null);
         var product = new Product("name", "desc", "image", 4.44, null);
         CartProduct expected = new CartProduct(5, cart, product);
 
