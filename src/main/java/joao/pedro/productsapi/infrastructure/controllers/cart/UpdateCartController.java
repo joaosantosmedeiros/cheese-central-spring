@@ -3,6 +3,7 @@ package joao.pedro.productsapi.infrastructure.controllers.cart;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
+import joao.pedro.productsapi.entity.cartProduct.model.FetchedCartProduct;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import joao.pedro.productsapi.usecase.account.FindAccountByEmailUseCase;
 import joao.pedro.productsapi.usecase.cart.FindActiveCartByAccountIdUseCase;
@@ -42,5 +43,5 @@ public class UpdateCartController {
     }
 
     public record Request(@Positive int amount) {}
-    public record Response(String message, boolean status, CartProduct data) {}
+    public record Response(String message, boolean status, FetchedCartProduct data) {}
 }
