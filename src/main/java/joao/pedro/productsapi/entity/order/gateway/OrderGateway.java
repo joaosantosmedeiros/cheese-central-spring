@@ -12,5 +12,4 @@ public interface OrderGateway {
     Order create(Order order);
     Optional<Order> findById(UUID id);
     List<Order> findByAccount(Account account);
-    void delete(UUID id);
 }
