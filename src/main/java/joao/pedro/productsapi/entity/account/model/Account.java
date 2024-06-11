@@ -2,6 +2,7 @@ package joao.pedro.productsapi.entity.account.model;
 
 import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.entity.enums.Role;
+import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 
 import java.util.List;
 import java.util.Objects;
@@ -92,5 +93,17 @@ public class Account {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, email, password, role, isDeleted);
+    }
+
+    public AccountEntity toAccountEntity() {
+        return new AccountEntity(
+                this.getId(),
+                this.getUsername(),
+                this.getEmail(),
+                this.getPassword(),
+                this.isDeleted(),
+                this.getRole(),
+                null
+        );
     }
 }
