@@ -2,6 +2,7 @@ package joao.pedro.productsapi.entity.cartProduct.model;
 
 import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.entity.product.model.Product;
+import joao.pedro.productsapi.infrastructure.config.db.schema.CartProductEntity;
 
 import java.util.UUID;
 
@@ -55,5 +56,14 @@ public class CartProduct {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public CartProductEntity toCartProductEntity(){
+        return new CartProductEntity(
+                this.id,
+                this.amount,
+                this.cart.toCartEntity(),
+                this.product.toProductEntity()
+        );
     }
 }

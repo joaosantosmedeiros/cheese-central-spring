@@ -1,6 +1,8 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.cart.model.Cart;
+import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,19 @@ public class CartProductEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "productId")
     private ProductEntity product;
+
+    public CartProduct toCartProduct() {
+        var cart = this.cart;
+        return new CartProduct(
+                this.id,
+                this.amount,
+                new Cart(
+                        cart.getId(),
+                        cart.isActive(),
+                        null,
+                        null
+                ),
+                this.product.toProduct()
+        );
+    }
 }
