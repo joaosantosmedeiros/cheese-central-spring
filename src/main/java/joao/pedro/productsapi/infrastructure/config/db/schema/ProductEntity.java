@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config.db.schema;
 
 import jakarta.persistence.*;
+import joao.pedro.productsapi.entity.product.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,15 @@ public class ProductEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "categoryId")
     private CategoryEntity category;
+
+    public Product toProduct() {
+        return new Product(
+                this.id,
+                this.name,
+                this.decription,
+                this.imageUrl,
+                this.price,
+                this.category.toCategory()
+        );
+    }
 }

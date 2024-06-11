@@ -1,6 +1,8 @@
 package joao.pedro.productsapi.entity.product.model;
 
 import joao.pedro.productsapi.entity.category.model.Category;
+import joao.pedro.productsapi.infrastructure.config.db.schema.CategoryEntity;
+import joao.pedro.productsapi.infrastructure.config.db.schema.ProductEntity;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -85,5 +87,16 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, imageUrl, price, category);
+    }
+
+    public ProductEntity toProductEntity(){
+        return new ProductEntity(
+                this.id,
+                this.name,
+                this.description,
+                this.imageUrl,
+                this.price,
+                new CategoryEntity(this.category.getId(), this.category.getName())
+        );
     }
 }
