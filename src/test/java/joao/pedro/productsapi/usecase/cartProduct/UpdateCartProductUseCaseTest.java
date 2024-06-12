@@ -3,6 +3,7 @@ package joao.pedro.productsapi.usecase.cartProduct;
 import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.entity.cartProduct.gateway.CartProductGateway;
 import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
+import joao.pedro.productsapi.entity.cartProduct.model.FetchedCartProduct;
 import joao.pedro.productsapi.entity.exceptions.BadRequestException;
 import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 import joao.pedro.productsapi.entity.exceptions.NotAuthorizedException;
@@ -60,7 +61,7 @@ class UpdateCartProductUseCaseTest {
                 amount
         ));
 
-        assertEquals(cartProduct, output.data());
+        assertEquals(new FetchedCartProduct(cartProduct), output.data());
     }
 
     @Test
