@@ -7,6 +7,7 @@ import joao.pedro.productsapi.entity.enums.Role;
 import joao.pedro.productsapi.entity.exceptions.BadRequestException;
 import joao.pedro.productsapi.entity.order.gateway.OrderGateway;
 import joao.pedro.productsapi.entity.order.model.Order;
+import joao.pedro.productsapi.entity.orderProduct.gateway.OrderProductGateway;
 import joao.pedro.productsapi.entity.payment.gateway.PaymentGateway;
 import joao.pedro.productsapi.entity.payment.model.Payment;
 import joao.pedro.productsapi.entity.payment.model.PaymentStatus;
@@ -33,6 +34,9 @@ class CreateOrderUseCaseTest {
 
     @Mock
     private PaymentGateway paymentGateway;
+
+    @Mock
+    private OrderProductGateway orderProductGateway;
 
     @Autowired
     @InjectMocks

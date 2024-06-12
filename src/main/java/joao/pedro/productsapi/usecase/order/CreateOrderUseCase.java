@@ -1,13 +1,17 @@
 package joao.pedro.productsapi.usecase.order;
 
 import joao.pedro.productsapi.entity.cart.model.Cart;
+import joao.pedro.productsapi.entity.cartProduct.model.CartProduct;
 import joao.pedro.productsapi.entity.exceptions.BadRequestException;
 import joao.pedro.productsapi.entity.order.gateway.OrderGateway;
 import joao.pedro.productsapi.entity.order.model.FetchedOrder;
 import joao.pedro.productsapi.entity.order.model.Order;
+import joao.pedro.productsapi.entity.orderProduct.gateway.OrderProductGateway;
+import joao.pedro.productsapi.entity.orderProduct.model.OrderProduct;
 import joao.pedro.productsapi.entity.payment.gateway.PaymentGateway;
 import joao.pedro.productsapi.entity.payment.model.Payment;
 import joao.pedro.productsapi.entity.payment.model.PaymentStatus;
+import joao.pedro.productsapi.entity.product.model.Product;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +19,13 @@ public class CreateOrderUseCase {
 
     private final OrderGateway orderGateway;
     private final PaymentGateway paymentGateway;
+    private final OrderProductGateway orderProductGateway;
 
-    public CreateOrderUseCase(OrderGateway orderGateway, PaymentGateway paymentGateway) {
+
+    public CreateOrderUseCase(OrderGateway orderGateway, PaymentGateway paymentGateway, OrderProductGateway orderProductGateway) {
         this.orderGateway = orderGateway;
         this.paymentGateway = paymentGateway;
+        this.orderProductGateway = orderProductGateway;
     }
 
     public Output execute(Input input) {
@@ -50,6 +57,15 @@ public class CreateOrderUseCase {
         );
 
         var createdOrder = orderGateway.create(order);
+
+        for(CartProduct cp : input.cart().getCartProducts() ){
+            orderProductGateway.create(new OrderProduct(
+                    order,
+                    cp.getProduct(),
+                    cp.getAmount(),
+                    cp.getProduct().getPrice()
+            ));
+        }
 
         payment.setOrder(createdOrder);
         paymentGateway.create(payment);
