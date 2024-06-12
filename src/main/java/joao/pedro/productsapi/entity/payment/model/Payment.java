@@ -32,6 +32,16 @@ public class Payment {
         this.order = order;
     }
 
+    public Payment(UUID id, PaymentStatus paymentStatus, double price, double discount, LocalDateTime paymentDate, Order order) {
+        this.id = id;
+        this.paymentStatus = paymentStatus;
+        this.price = price;
+        this.discount = discount;
+        this.finalPrice = price - (discount * price);
+        this.paymentDate = paymentDate;
+        this.order = order;
+    }
+
     public PaymentEntity toPaymentEntity() {
         return new PaymentEntity(
                 this.id,
