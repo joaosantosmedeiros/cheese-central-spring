@@ -31,16 +31,15 @@ public class CartProductEntity {
     private ProductEntity product;
 
     public CartProduct toCartProduct() {
-        var cart = this.cart;
         return new CartProduct(
                 this.id,
                 this.amount,
-                new Cart(
-                        cart.getId(),
-                        cart.isActive(),
+                this.cart != null ? new Cart(
+                        this.cart.getId(),
+                        this.cart.isActive(),
                         null,
                         null
-                ),
+                ) : null,
                 this.product.toProduct()
         );
     }

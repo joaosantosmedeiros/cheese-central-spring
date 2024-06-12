@@ -42,7 +42,7 @@ public class PaymentEntity {
                 this.discount,
                 this.finalPrice,
                 this.paymentDate,
-                this.order.toOrder()
+                this.order != null ? this.order.toOrder() : null
         );
     }
 }

@@ -36,7 +36,7 @@ public class ProductEntity {
                 this.decription,
                 this.imageUrl,
                 this.price,
-                this.category.toCategory()
+                this.category != null ? this.category.toCategory() : null
         );
     }
 }

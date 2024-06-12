@@ -33,9 +33,9 @@ public class OrderEntity {
     public Order toOrder() {
         return new Order(
                 this.id,
-                this.account.toAccount(),
+                this.account != null ? this.account.toAccount() : null,
                 this.getDate(),
-                this.payment.toPayment()
+                this.payment != null ? this.payment.toPayment() : null
         );
     }
 }
