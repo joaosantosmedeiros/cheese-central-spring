@@ -34,8 +34,11 @@ public class Cart {
         return new CartEntity(
                 this.id,
                 this.isActive,
-                this.account.toAccountEntity(),
-                this.cartProducts.stream().map(CartProduct::toCartProductEntity).collect(Collectors.toList())
+                this.account != null ? this.account.toAccountEntity() : null,
+                this.cartProducts != null ?
+                        this.cartProducts.stream().map(CartProduct::toCartProductEntity).collect(Collectors.toList())
+                        :
+                        null
         );
     }
 }

@@ -77,7 +77,7 @@ public class Order {
                         payment.getPaymentDate(),
                         null
                 ),
-                account.toAccountEntity()
+                this.account != null ? account.toAccountEntity() : null
 
         );
     }

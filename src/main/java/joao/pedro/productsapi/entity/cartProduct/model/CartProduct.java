@@ -62,8 +62,8 @@ public class CartProduct {
         return new CartProductEntity(
                 this.id,
                 this.amount,
-                this.cart.toCartEntity(),
-                this.product.toProductEntity()
+                this.cart != null ? this.cart.toCartEntity() : null,
+                this.product != null ? this.product.toProductEntity() : null
         );
     }
 }

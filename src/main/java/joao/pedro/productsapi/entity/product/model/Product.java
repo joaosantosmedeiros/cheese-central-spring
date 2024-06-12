@@ -96,7 +96,7 @@ public class Product {
                 this.description,
                 this.imageUrl,
                 this.price,
-                new CategoryEntity(this.category.getId(), this.category.getName())
+                this.category != null ? new CategoryEntity(this.category.getId(), this.category.getName()) : null
         );
     }
 }
