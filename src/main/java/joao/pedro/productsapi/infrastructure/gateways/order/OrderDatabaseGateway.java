@@ -2,6 +2,7 @@ package joao.pedro.productsapi.infrastructure.gateways.order;
 
 import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.entity.order.gateway.OrderGateway;
+import joao.pedro.productsapi.entity.order.model.FetchedOrder;
 import joao.pedro.productsapi.entity.order.model.Order;
 import joao.pedro.productsapi.infrastructure.config.db.repository.OrderRepository;
 import joao.pedro.productsapi.infrastructure.config.db.schema.OrderEntity;
@@ -33,6 +34,11 @@ public class OrderDatabaseGateway implements OrderGateway {
     @Override
     public List<Order> findByAccount(Account account) {
         return orderRepository.findByAccount(account.toAccountEntity())
-                .stream().map(OrderEntity::toOrder).collect(Collectors.toList());
+                .stream().map(orderEntity -> {
+                    var payment = orderEntity.getPayment();
+                    payment.setOrder(null);
+                    orderEntity.setPayment(payment);
+                    return orderEntity.toOrder();
+                }).collect(Collectors.toList());
     }
 }
