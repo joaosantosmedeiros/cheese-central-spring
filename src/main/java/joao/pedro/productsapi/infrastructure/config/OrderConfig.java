@@ -4,6 +4,7 @@ import joao.pedro.productsapi.entity.order.gateway.OrderGateway;
 import joao.pedro.productsapi.entity.orderProduct.gateway.OrderProductGateway;
 import joao.pedro.productsapi.entity.payment.gateway.PaymentGateway;
 import joao.pedro.productsapi.usecase.order.CreateOrderUseCase;
+import joao.pedro.productsapi.usecase.order.FindOrderByIdUseCase;
 import joao.pedro.productsapi.usecase.order.ListOrdersByAccountUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,10 @@ public class OrderConfig {
     @Bean
     public ListOrdersByAccountUseCase listOrdersByUserUseCase(OrderGateway orderGateway){
         return new ListOrdersByAccountUseCase(orderGateway);
+    }
+
+    @Bean
+    public FindOrderByIdUseCase findOrderByIdUseCase(OrderGateway orderGateway){
+        return new FindOrderByIdUseCase(orderGateway);
     }
 }
