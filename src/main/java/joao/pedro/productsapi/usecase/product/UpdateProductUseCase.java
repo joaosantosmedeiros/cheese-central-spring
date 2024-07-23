@@ -1,12 +1,10 @@
 package joao.pedro.productsapi.usecase.product;
 
 import joao.pedro.productsapi.entity.category.gateway.CategoryGateway;
-import joao.pedro.productsapi.entity.category.model.Category;
+import joao.pedro.productsapi.entity.exceptions.BadRequestException;
 import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 import joao.pedro.productsapi.entity.product.gateway.ProductGateway;
 import joao.pedro.productsapi.entity.product.model.Product;
-
-import java.util.UUID;
 
 public class UpdateProductUseCase {
 
@@ -19,34 +17,31 @@ public class UpdateProductUseCase {
     }
 
     public Output execute(Input input) {
-        productGateway.findById(input.id).orElseThrow(() -> new EntityNotFoundException("Product"));
-        var categoryExists = categoryGateway.findById(input.categoryId).orElseThrow(() -> new EntityNotFoundException("Category"));
+        var productExists = productGateway.findById(input.product.getId()).orElseThrow(() -> new EntityNotFoundException("Product"));
+        var inputProduct = input.product;
 
-        Product product = new Product(
-                input.id,
-                input.name,
-                input.description,
-                input.imageUrl,
-                input.price,
-                new Category(
-                        input.categoryId,
-                        categoryExists.getName()
-                )
-        );
+        if(inputProduct.getPrice() != null){
+            if(inputProduct.getPrice() <= 0) throw new BadRequestException("Price must be positive.");
+            productExists.setPrice(inputProduct.getPrice());
+        }
+        if(inputProduct.getCategory().getId() != null){
+            var categoryExists = categoryGateway.findById(input.product.getCategory().getId()).orElseThrow(() -> new EntityNotFoundException("Category"));
+            productExists.setCategory(categoryExists);
+        }
+        if(inputProduct.getImageUrl() != null && !inputProduct.getImageUrl().trim().isBlank()){
+            productExists.setImageUrl(inputProduct.getImageUrl());
+        }
+        if(inputProduct.getDescription() != null && !inputProduct.getDescription().trim().isBlank()){
+            productExists.setDescription(inputProduct.getDescription());
+        }
+        if(inputProduct.getName() != null && !inputProduct.getName().trim().isBlank()){
+            productExists.setName(inputProduct.getName());
+        }
 
-        productGateway.create(product);
-
-        return new Output(product);
+        return new Output(productGateway.create(productExists));
     }
 
-    public record Input(
-      UUID id,
-      String name,
-      String description,
-      String imageUrl,
-      Double price,
-      UUID categoryId
-    ) {}
+    public record Input(Product product) {}
 
     public record Output(Product data) {}
 }
