@@ -1,6 +1,7 @@
 package joao.pedro.productsapi.entity.account.model;
 import joao.pedro.productsapi.entity.enums.Role;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class FetchedAccount {
@@ -36,5 +37,18 @@ public class FetchedAccount {
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FetchedAccount that = (FetchedAccount) o;
+        return isDeleted == that.isDeleted && Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(email, that.email) && role == that.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, role, isDeleted);
     }
 }
