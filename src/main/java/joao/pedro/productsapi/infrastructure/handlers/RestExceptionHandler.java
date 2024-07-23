@@ -23,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
     private ResponseEntity<Output> entityAlreadyExists(EntityAlreadyExistsException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Output(false, exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new Output(false, exception.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
