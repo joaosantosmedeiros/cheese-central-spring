@@ -1,10 +1,7 @@
 package joao.pedro.productsapi.infrastructure.config;
 
 import joao.pedro.productsapi.entity.account.gateway.AccountGateway;
-import joao.pedro.productsapi.usecase.account.CreateAccountUseCase;
-import joao.pedro.productsapi.usecase.account.DeleteAccountUseCase;
-import joao.pedro.productsapi.usecase.account.FindAccountByEmailUseCase;
-import joao.pedro.productsapi.usecase.account.ListAccountsUseCase;
+import joao.pedro.productsapi.usecase.account.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +23,12 @@ public class AccountConfig {
     public CreateAccountUseCase createAccountUseCase(AccountGateway accountGateway) {
         return new CreateAccountUseCase(accountGateway, new BCryptPasswordEncoder());
     }
+
+    @Bean
+    public UpdateAccountUseCase updateAccountUseCase(AccountGateway accountGateway) {
+        return new UpdateAccountUseCase(accountGateway, new BCryptPasswordEncoder());
+    }
+
 
     @Bean
     public DeleteAccountUseCase deleteAccountUseCase(AccountGateway accountGateway) {
