@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import joao.pedro.productsapi.entity.product.model.Product;
+import joao.pedro.productsapi.infrastructure.dtos.StandardResponse;
 import joao.pedro.productsapi.usecase.product.CreateProductUseCase;
 import joao.pedro.productsapi.usecase.product.CreateProductUseCase.Input;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class CreateProductController {
     private final CreateProductUseCase createProductUseCase;
 
     @PostMapping("/product")
-    public ResponseEntity<Object> create(@RequestBody @Valid Request request) {
+    public ResponseEntity<StandardResponse<Product>> create(@RequestBody @Valid Request request) {
         var output = createProductUseCase.execute(new Input(
                request.name,
                request.description,
@@ -31,9 +32,9 @@ public class CreateProductController {
                request.categoryId
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new Response(
-                true,
+        return ResponseEntity.status(HttpStatus.CREATED).body(new StandardResponse<>(
                 "Product created successfully.",
+                true,
                 output.data()
                 )
         );
@@ -49,11 +50,5 @@ public class CreateProductController {
             @Positive
             Double price,
             UUID categoryId
-    ){}
-
-    public record Response(
-            Boolean status,
-            String message,
-            Product data
     ){}
 }
