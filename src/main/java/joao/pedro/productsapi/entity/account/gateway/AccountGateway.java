@@ -12,5 +12,6 @@ public interface AccountGateway {
     Optional<Account> findByUsername(String username);
     Optional<Account> findByEmail(String email);
     Optional<Account> findById(UUID id);
+    Account update(Account account);
     void delete(Account account);
 }

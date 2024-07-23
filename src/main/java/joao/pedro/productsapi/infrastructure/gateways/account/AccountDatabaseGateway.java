@@ -92,6 +92,22 @@ public class AccountDatabaseGateway implements AccountGateway {
     }
 
     @Override
+    public Account update(Account account) {
+        AccountEntity accountEntity = new AccountEntity(
+                account.getId(),
+                account.getUsername(),
+                account.getEmail(),
+                account.getPassword(),
+                account.isDeleted(),
+                account.getRole(),
+                List.of()
+        );
+        this.accountRepository.save(accountEntity);
+
+        return account;
+    }
+
+    @Override
     public void delete(Account account) {
         AccountEntity accountEntity = new AccountEntity(
                 account.getId(),
