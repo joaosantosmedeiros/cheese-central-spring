@@ -1,7 +1,10 @@
 package joao.pedro.productsapi.infrastructure.controllers.authentication;
 
 import jakarta.validation.Valid;
-import joao.pedro.productsapi.entity.account.model.Account;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import joao.pedro.productsapi.entity.account.model.FetchedAccount;
+import joao.pedro.productsapi.infrastructure.dtos.StandardResponse;
 import joao.pedro.productsapi.usecase.account.CreateAccountUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,29 +20,27 @@ public class RegisterController {
     private final CreateAccountUseCase createAccountUseCase;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<Response> createAccount(@RequestBody @Valid Request request) {
+    public ResponseEntity<StandardResponse<FetchedAccount>> createAccount(@RequestBody @Valid Request request) {
         var output = createAccountUseCase.execute(new CreateAccountUseCase.Input(
                 request.username,
                 request.email,
                 request.password
         ));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new Response(
-                true,
+        return ResponseEntity.status(HttpStatus.CREATED).body(new StandardResponse<>(
                 "Account created successfully",
+                true,
                 output.data()
         ));
     }
 
     public record Request(
+            @Email
+            @NotBlank
             String email,
+            @NotBlank
             String username,
+            @NotBlank
             String password
-    ) {}
-
-    public record Response(
-            boolean status,
-            String message,
-            Account data
     ) {}
 }

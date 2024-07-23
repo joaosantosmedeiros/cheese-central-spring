@@ -2,6 +2,7 @@ package joao.pedro.productsapi.usecase.account;
 
 import joao.pedro.productsapi.entity.account.gateway.AccountGateway;
 import joao.pedro.productsapi.entity.account.model.Account;
+import joao.pedro.productsapi.entity.account.model.FetchedAccount;
 import joao.pedro.productsapi.entity.enums.Role;
 import joao.pedro.productsapi.entity.exceptions.ObjectInUseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,7 +44,7 @@ public class CreateAccountUseCase {
 
         accountGateway.create(account);
 
-        return new Output(account);
+        return new Output(new FetchedAccount(account));
     }
 
     public record Input(
@@ -52,5 +53,5 @@ public class CreateAccountUseCase {
             String password
     ) {}
 
-    public record Output ( Account data ) {}
+    public record Output ( FetchedAccount data ) {}
 }
