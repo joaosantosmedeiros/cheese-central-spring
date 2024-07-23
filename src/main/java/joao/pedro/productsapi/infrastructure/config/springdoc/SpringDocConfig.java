@@ -1,4 +1,4 @@
-package joao.pedro.productsapi.infrastructure.config.springdocs;
+package joao.pedro.productsapi.infrastructure.config.springdoc;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
