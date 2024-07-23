@@ -37,10 +37,10 @@ class UpdateCategoryUseCaseTest {
     @DisplayName("Should update a category successfully")
     void updateCategorySuccess () {
         Category category = new Category(UUID.randomUUID(), "any_name");
-        Input input = new Input(category.getId(), category.getName());
+        Input input = new Input(category);
 
-        when(categoryGateway.findById(input.id())).thenReturn(Optional.of(category));
-        when(categoryGateway.findByName(input.name())).thenReturn(Optional.empty());
+        when(categoryGateway.findById(input.category().getId())).thenReturn(Optional.of(category));
+        when(categoryGateway.findByName(input.category().getName())).thenReturn(Optional.empty());
         when(categoryGateway.update(any())).thenReturn(category);
 
         var result = updateCategoryUseCase.execute(input);
@@ -52,9 +52,9 @@ class UpdateCategoryUseCaseTest {
     @DisplayName("Should throw if an invalid category is passed")
     void updateCategoryNotFoundError () {
         Category category = new Category(UUID.randomUUID(), "any_name");
-        Input input = new Input(category.getId(), category.getName());
+        Input input = new Input(category);
 
-        when(categoryGateway.findById(input.id())).thenReturn(Optional.empty());
+        when(categoryGateway.findById(input.category().getId())).thenReturn(Optional.empty());
 
         Exception thrown = assertThrows(EntityNotFoundException.class, () -> {
             updateCategoryUseCase.execute(input);
@@ -67,10 +67,10 @@ class UpdateCategoryUseCaseTest {
     @DisplayName("Should throw if the category name is in use")
     void updateCategoryCategoryInUseError () {
         Category category = new Category(UUID.randomUUID(), "any_name");
-        Input input = new Input(category.getId(), category.getName());
+        Input input = new Input(category);
 
-        when(categoryGateway.findById(input.id())).thenReturn(Optional.of(category));
-        when(categoryGateway.findByName(input.name())).thenReturn(Optional.of(new Category(input.name())));
+        when(categoryGateway.findById(input.category().getId())).thenReturn(Optional.of(category));
+        when(categoryGateway.findByName(input.category().getName())).thenReturn(Optional.of(new Category(input.category().getName())));
 
         Exception thrown = assertThrows(EntityAlreadyExistsException.class, () -> {
             updateCategoryUseCase.execute(input);

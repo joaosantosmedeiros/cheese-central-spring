@@ -15,25 +15,18 @@ public class UpdateCategoryUseCase {
     }
 
     public Output execute(Input input) {
-        var categoryExists = categoryGateway.findById(input.id());
-        if(categoryExists.isEmpty()){
-            throw new EntityNotFoundException("Category");
-        }
+        var categoryExists = categoryGateway.findById(input.category.getId()).orElseThrow(() -> new EntityNotFoundException("Category"));
 
-        var categoryAlreadyInUse = categoryGateway.findByName(input.name());
-        if(categoryAlreadyInUse.isPresent() && !categoryAlreadyInUse.get().getId().equals(input.id())){
+        var categoryAlreadyInUse = categoryGateway.findByName(input.category.getName());
+        if(categoryAlreadyInUse.isPresent() && !categoryAlreadyInUse.get().getId().equals(input.category.getId())){
             throw new EntityAlreadyExistsException("Category");
         }
 
-        var updatedCategory = categoryGateway.update(new Category(input.id(), input.name()));
-
-        return new Output(updatedCategory);
+        categoryExists.setName(input.category.getName());
+        return new Output(categoryGateway.update(categoryExists));
     }
 
-    public record Input(
-            UUID id,
-            String name
-    ){}
+    public record Input(Category category){}
 
     public record Output(Category data){}
 }
