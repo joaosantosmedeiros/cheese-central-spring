@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.infrastructure.config.db.schema.AccountEntity;
 import joao.pedro.productsapi.infrastructure.config.security.TokenService;
+import joao.pedro.productsapi.infrastructure.dtos.StandardResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class LoginController {
     private TokenService tokenService;
 
     @PostMapping("/auth/login")
-    public ResponseEntity<Response> login(@RequestBody @Valid Request request) {
+    public ResponseEntity<StandardResponse<String>> login(@RequestBody @Valid Request request) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(request.username, request.password);
         var auth = this.authenticationManager.authenticate(usernamePassword);
         AccountEntity accountEntity = (AccountEntity) auth.getPrincipal();
@@ -38,9 +39,9 @@ public class LoginController {
                 List.of()
         ));
 
-        return ResponseEntity.status(HttpStatus.OK).body(new Response(
-                true,
+        return ResponseEntity.status(HttpStatus.OK).body(new StandardResponse<>(
                 "Logged in successfully.",
+                true,
                 token
         ));
     }
@@ -50,11 +51,5 @@ public class LoginController {
             String username,
             @NotBlank
             String password
-    ) {}
-
-    public record Response(
-            boolean status,
-            String message,
-            String token
     ) {}
 }
