@@ -3,7 +3,6 @@ package joao.pedro.productsapi.usecase.cart;
 import joao.pedro.productsapi.entity.account.model.Account;
 import joao.pedro.productsapi.entity.cart.gateway.CartGateway;
 import joao.pedro.productsapi.entity.cart.model.Cart;
-import joao.pedro.productsapi.entity.product.model.Product;
 
 import java.util.List;
 
@@ -26,6 +25,6 @@ public class CreateCartUseCase {
         return new Output(cartGateway.create(new Cart(true, input.account, null)));
     }
 
-    public record Input(Product product, Account account, int amount){}
+    public record Input(Account account){}
     public record Output(Cart data){}
 }

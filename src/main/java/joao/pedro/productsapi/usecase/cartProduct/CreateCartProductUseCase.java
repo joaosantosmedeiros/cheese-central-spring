@@ -15,10 +15,7 @@ public class CreateCartProductUseCase {
     }
 
     public Output execute(Input input) {
-        var cartProductExists = cartProductGateway.findByProductAndCart(input.product, input.cart());
-        if(cartProductExists.isPresent()){
-            throw new EntityAlreadyExistsException("CartProduct");
-        }
+        cartProductGateway.findByProductAndCart(input.product, input.cart()).orElseThrow(() -> new EntityAlreadyExistsException("CartProduct"));
 
         CartProduct cartProduct = new CartProduct(input.amount, input.cart, input.product);
         return new Output(cartProductGateway.create(cartProduct));
