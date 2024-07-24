@@ -18,20 +18,16 @@ public class UpdateCartProductUseCase {
     }
 
     public Output execute(Input input) {
-        var cartProductExists = cartProductGateway.findById(input.cartProductId());
-        if(cartProductExists.isEmpty()){
-            throw new EntityNotFoundException("CartProduct");
-        }
+        var cartProduct = cartProductGateway.findById(input.cartProductId()).orElseThrow(() -> new EntityNotFoundException("CartProduct"));
 
         if(input.amount < 1) {
             throw new BadRequestException("Amount must be positive.");
         }
 
-        if(cartProductExists.get().getCart().getId() != input.cartId()){
+        if(cartProduct.getCart().getId() != input.cartId()){
             throw new NotAuthorizedException();
         }
 
-        CartProduct cartProduct = cartProductExists.get();
         cartProduct.setAmount(input.amount);
 
         return new Output(new FetchedCartProduct(cartProductGateway.update(cartProduct)));
