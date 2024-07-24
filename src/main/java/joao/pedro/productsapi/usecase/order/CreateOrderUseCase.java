@@ -11,7 +11,6 @@ import joao.pedro.productsapi.entity.orderProduct.model.OrderProduct;
 import joao.pedro.productsapi.entity.payment.gateway.PaymentGateway;
 import joao.pedro.productsapi.entity.payment.model.Payment;
 import joao.pedro.productsapi.entity.payment.model.PaymentStatus;
-import joao.pedro.productsapi.entity.product.model.Product;
 
 import java.time.LocalDateTime;
 
@@ -63,7 +62,7 @@ public class CreateOrderUseCase {
                     order,
                     cp.getProduct(),
                     cp.getAmount(),
-                    cp.getProduct().getPrice()
+                    cp.getProduct().getPrice() * cp.getAmount()
             ));
         }
 
