@@ -23,7 +23,7 @@ public class OrderConfig {
     }
 
     @Bean
-    public FindOrderByIdUseCase findOrderByIdUseCase(OrderGateway orderGateway){
-        return new FindOrderByIdUseCase(orderGateway);
+    public FindOrderByIdUseCase findOrderByIdUseCase(OrderGateway orderGateway, OrderProductGateway orderProductGateway){
+        return new FindOrderByIdUseCase(orderGateway, orderProductGateway);
     }
 }
