@@ -1,5 +1,7 @@
 package joao.pedro.productsapi.entity.category.model;
 
+import joao.pedro.productsapi.infrastructure.config.db.schema.CategoryEntity;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -44,5 +46,13 @@ public class Category {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public CategoryEntity toCategoryEntity() {
+        return new CategoryEntity(id, name);
+    }
+
+    public Category toCategory() {
+        return new Category(id, name);
     }
 }

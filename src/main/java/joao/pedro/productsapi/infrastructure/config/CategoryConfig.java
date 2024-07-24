@@ -2,6 +2,7 @@ package joao.pedro.productsapi.infrastructure.config;
 
 import joao.pedro.productsapi.entity.category.gateway.CategoryGateway;
 
+import joao.pedro.productsapi.entity.product.gateway.ProductGateway;
 import joao.pedro.productsapi.usecase.category.*;
 
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class CategoryConfig {
     }
 
     @Bean
-    DeleteCategoryUseCase deleteCategoryUseCase(CategoryGateway categoryGateway){
-        return new DeleteCategoryUseCase(categoryGateway);
+    DeleteCategoryUseCase deleteCategoryUseCase(CategoryGateway categoryGateway, ProductGateway productGateway){
+        return new DeleteCategoryUseCase(categoryGateway, productGateway);
     }
 }
