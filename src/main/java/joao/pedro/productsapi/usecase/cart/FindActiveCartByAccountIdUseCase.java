@@ -15,12 +15,8 @@ public class FindActiveCartByAccountIdUseCase {
     }
 
     public Output execute(Input input) {
-        var cart = cartGateway.findActiveByAccountId(input.accountId);
-        if(cart.isEmpty()){
-            throw new EntityNotFoundException("Cart");
-        }
-
-        return new Output(cart.get());
+        var cart = cartGateway.findActiveByAccountId(input.accountId).orElseThrow(() -> new EntityNotFoundException("Cart"));
+        return new Output(cart);
     }
 
     public record Input(UUID accountId){};
