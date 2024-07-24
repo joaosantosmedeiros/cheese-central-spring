@@ -4,6 +4,7 @@ import joao.pedro.productsapi.entity.exceptions.EntityNotFoundException;
 import joao.pedro.productsapi.entity.order.gateway.OrderGateway;
 import joao.pedro.productsapi.entity.order.model.DetailedOrder;
 import joao.pedro.productsapi.entity.order.model.Order;
+import joao.pedro.productsapi.entity.orderProduct.gateway.OrderProductGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ class FindOrderByIdUseCaseTest {
 
     @Mock
     private OrderGateway orderGateway;
+
+    @Mock
+    private OrderProductGateway orderProductGateway;
 
     @Autowired
     @InjectMocks
