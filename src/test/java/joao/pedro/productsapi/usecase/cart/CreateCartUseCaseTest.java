@@ -52,11 +52,7 @@ class CreateCartUseCaseTest {
                 activeCart
         ));
 
-        var cart = createCartUseCase.execute(new CreateCartUseCase.Input(
-                new Product("p", "desc", "", 12.5, null),
-                account,
-                5
-        )).data();
+        var cart = createCartUseCase.execute(new CreateCartUseCase.Input(account)).data();
 
         assertEquals(activeCart, cart);
     }
@@ -76,11 +72,7 @@ class CreateCartUseCaseTest {
 
         when(cartGateway.findByAccountId(account.getId())).thenReturn(carts);
 
-        var cart = createCartUseCase.execute(new CreateCartUseCase.Input(
-                new Product("p", "desc", "", 12.5, null),
-                account,
-                5
-        )).data();
+        var cart = createCartUseCase.execute(new CreateCartUseCase.Input(account)).data();
 
         assertNotEquals(carts.get(0), cart);
         assertNotEquals(carts.get(1), cart);

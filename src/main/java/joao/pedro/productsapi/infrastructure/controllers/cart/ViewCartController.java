@@ -42,12 +42,12 @@ public class ViewCartController {
     public ResponseEntity<StandardResponse<List<FetchedCartProduct>>> viewItems() {
         var account = ((AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).toAccount();
         Cart cart = findActiveCartByAccountIdUseCase.execute(new FindActiveCartByAccountIdUseCase.Input(account.getId())).data();
-        var cartProducts = findCartProductByCartUseCase.execute(new FindCartProductByCartUseCase.Input(cart.getId()));
+        var cartProducts = findCartProductByCartUseCase.execute(new FindCartProductByCartUseCase.Input(cart)).data();
 
         return ResponseEntity.ok(new StandardResponse<>(
                 "Showing found cart items.",
                 true,
-                cartProducts.data()
+                cartProducts
         ));
     }
 }

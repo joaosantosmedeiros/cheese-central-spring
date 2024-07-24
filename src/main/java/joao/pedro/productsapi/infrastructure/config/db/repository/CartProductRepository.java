@@ -1,5 +1,6 @@
 package joao.pedro.productsapi.infrastructure.config.db.repository;
 
+import joao.pedro.productsapi.infrastructure.config.db.schema.CartEntity;
 import joao.pedro.productsapi.infrastructure.config.db.schema.CartProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +12,5 @@ public interface CartProductRepository extends JpaRepository<CartProductEntity, 
 
     Optional<CartProductEntity> findByCartIdAndProductId(UUID cartId, UUID productId);
 
-    List<CartProductEntity> findByCartId(UUID cartId);
+    List<CartProductEntity> findByCart(CartEntity cart);
 }

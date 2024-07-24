@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -37,21 +38,22 @@ class FindCartProductByCartUseCaseTest {
     @Test
     @DisplayName("It should list cart products correctly")
     public void findCartProductsSuccess() {
+        Cart cart = new Cart(true, null, null);
         var cartProductList = List.of(
-                new CartProduct(UUID.randomUUID(), 2, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null)),
-                new CartProduct(UUID.randomUUID(), 3, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null)),
-                new CartProduct(UUID.randomUUID(), 4, new Cart(true, null, null), new Product("name", "desc", "image", 12d, null))
+                new CartProduct(2, cart, new Product("name", "desc", "image", 12d, null)),
+                new CartProduct(3, cart, new Product("name", "desc", "image", 12d, null)),
+                new CartProduct(4, cart, new Product("name", "desc", "image", 12d, null))
         );
-        var fetchedProductsList = new FetchedCartProduct[]{
+        var fetchedProductsList = List.of(
                 new FetchedCartProduct(cartProductList.get(0)),
                 new FetchedCartProduct(cartProductList.get(1)),
                 new FetchedCartProduct(cartProductList.get(2))
-        };
+        );
 
-        when(cartProductGateway.findByCartId(any())).thenReturn(cartProductList);
+        when(cartProductGateway.findByCart(cart)).thenReturn(cartProductList);
 
-        var output = findCartProductByCartUseCase.execute(new FindCartProductByCartUseCase.Input(UUID.randomUUID())).data();
+        var output = findCartProductByCartUseCase.execute(new FindCartProductByCartUseCase.Input(cart)).data();
 
-        assertArrayEquals(output, fetchedProductsList);
+        assertEquals(output, fetchedProductsList);
     }
 }

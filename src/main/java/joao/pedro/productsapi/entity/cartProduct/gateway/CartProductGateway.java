@@ -15,7 +15,7 @@ public interface CartProductGateway {
 
     Optional<CartProduct> findById(UUID id);
 
-    List<CartProduct> findByCartId(UUID cartId);
+    List<CartProduct> findByCart(Cart cart);
 
     CartProduct update(CartProduct cartProduct);
 

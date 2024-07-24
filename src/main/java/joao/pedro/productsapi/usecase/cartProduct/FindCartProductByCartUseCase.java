@@ -1,5 +1,6 @@
 package joao.pedro.productsapi.usecase.cartProduct;
 
+import joao.pedro.productsapi.entity.cart.model.Cart;
 import joao.pedro.productsapi.entity.cartProduct.gateway.CartProductGateway;
 import joao.pedro.productsapi.entity.cartProduct.model.FetchedCartProduct;
 
@@ -15,10 +16,10 @@ public class FindCartProductByCartUseCase {
     }
 
     public Output execute(Input input) {
-        var cartProducts = cartProductGateway.findByCartId(input.cartId).stream().map(FetchedCartProduct::new).toList();
+        var cartProducts = cartProductGateway.findByCart(input.cart).stream().map(FetchedCartProduct::new).toList();
         return new Output(cartProducts);
     }
 
-    public record Input(UUID cartId) {}
+    public record Input(Cart cart) {}
     public record Output(List<FetchedCartProduct> data) {}
 }

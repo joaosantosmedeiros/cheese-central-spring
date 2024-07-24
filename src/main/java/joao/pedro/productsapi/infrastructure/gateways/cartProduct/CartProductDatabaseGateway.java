@@ -43,8 +43,8 @@ public class CartProductDatabaseGateway implements CartProductGateway {
     }
 
     @Override
-    public List<CartProduct> findByCartId(UUID cartId) {
-        return repository.findByCartId(cartId).stream().map(this::toCartProduct)
+    public List<CartProduct> findByCart(Cart cart) {
+        return repository.findByCart(cart.toCartEntity()).stream().map(this::toCartProduct)
                 .collect(Collectors.toList());
     }
 
