@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+//TODO verfificar a deleção caso o produto esteja em um cart product
 @RestController
 @AllArgsConstructor
 @Tag(name = "Products", description = "Operation related to products.")
