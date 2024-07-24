@@ -39,6 +39,11 @@ public class ProductDatabaseGateway implements ProductGateway {
     }
 
     @Override
+    public List<Product> findByCategory(Category category) {
+        return productRepository.findByCategory(category.toCategoryEntity()).stream().map(ProductEntity::toProduct).toList();
+    }
+
+    @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(productEntity -> new Product(
                 productEntity.getId(),
