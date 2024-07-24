@@ -15,16 +15,12 @@ public class DeleteCartProductUseCase {
     }
 
     public void execute(Input input) {
-        var cartProductExists = cartProductGateway.findById(input.cartProductId);
-        if(cartProductExists.isEmpty()){
-            throw new EntityNotFoundException("CartProduct");
-        }
-
-        if(cartProductExists.get().getCart().getId() != input.cartId){
+        var cartProductExists = cartProductGateway.findById(input.cartProductId).orElseThrow(() -> new EntityNotFoundException("CartProduct"));
+        if(cartProductExists.getCart().getId() != input.cartId){
             throw new NotAuthorizedException();
         }
 
-        cartProductGateway.delete(cartProductExists.get());
+        cartProductGateway.delete(cartProductExists);
     }
 
     public record Input(UUID cartProductId, UUID cartId) {}
