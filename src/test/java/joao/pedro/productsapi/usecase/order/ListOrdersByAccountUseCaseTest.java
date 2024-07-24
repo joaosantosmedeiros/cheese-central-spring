@@ -39,7 +39,7 @@ class ListOrdersByAccountUseCaseTest {
     @DisplayName("It should list an account orders correctly")
     public void listOrdersSuccess() {
         var account = new Account("name","mail@mail.com","password", false, Role.USER,null);
-        var order = new Order(account, LocalDateTime.now(),new Payment(PaymentStatus.PENDING, 0d, 0d, LocalDateTime.now(), null));
+        var order = new Order(account, LocalDateTime.now(),new Payment(PaymentStatus.PENDING, 0d, 0d, LocalDateTime.now()));
         when(orderGateway.findByAccount(account)).thenReturn(List.of(order));
 
         var orders = listOrdersByAccountUseCase.execute(new ListOrdersByAccountUseCase.Input(account)).data();

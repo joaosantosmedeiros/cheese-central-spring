@@ -74,8 +74,7 @@ public class Order {
                         payment.getPrice(),
                         payment.getDiscount(),
                         payment.getFinalPrice(),
-                        payment.getPaymentDate(),
-                        null
+                        payment.getPaymentDate()
                 ),
                 this.account != null ? account.toAccountEntity() : null
 

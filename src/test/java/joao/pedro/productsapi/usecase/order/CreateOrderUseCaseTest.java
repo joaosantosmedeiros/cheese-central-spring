@@ -67,7 +67,6 @@ class CreateOrderUseCaseTest {
                 PaymentStatus.PENDING,
                 12d,
                 0d,
-                null,
                 null
         );
         Order order = new Order(input.cart().getAccount(), null, payment);
@@ -115,7 +114,7 @@ class CreateOrderUseCaseTest {
         );
 
 
-        Payment payment = new Payment(PaymentStatus.PENDING,-12d,0d,null, null);
+        Payment payment = new Payment(PaymentStatus.PENDING,-12d,0d,null);
 
         when(paymentGateway.create(any())).thenReturn(payment);
 

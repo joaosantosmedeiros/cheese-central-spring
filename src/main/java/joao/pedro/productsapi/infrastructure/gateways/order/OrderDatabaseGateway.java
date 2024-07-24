@@ -30,7 +30,6 @@ public class OrderDatabaseGateway implements OrderGateway {
     public Optional<Order> findById(UUID id) {
         return orderRepository.findById(id).map(orderEntity -> {
             var payment = orderEntity.getPayment();
-            payment.setOrder(null);
             orderEntity.setPayment(payment);
             return orderEntity.toOrder();
         });
@@ -41,7 +40,6 @@ public class OrderDatabaseGateway implements OrderGateway {
         return orderRepository.findByAccount(account.toAccountEntity())
                 .stream().map(orderEntity -> {
                     var payment = orderEntity.getPayment();
-                    payment.setOrder(null);
                     orderEntity.setPayment(payment);
                     return orderEntity.toOrder();
                 }).collect(Collectors.toList());

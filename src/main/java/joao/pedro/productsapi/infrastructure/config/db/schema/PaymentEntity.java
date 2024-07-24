@@ -30,10 +30,6 @@ public class PaymentEntity {
     @Column(nullable = true)
     private LocalDateTime paymentDate;
 
-    @OneToOne
-    @JoinColumn(name = "orderId")
-    OrderEntity order;
-
     public Payment toPayment() {
         return new Payment(
                 this.id,
@@ -41,8 +37,7 @@ public class PaymentEntity {
                 this.price,
                 this.discount,
                 this.finalPrice,
-                this.paymentDate,
-                this.order != null ? this.order.toOrder() : null
+                this.paymentDate
         );
     }
 }

@@ -41,7 +41,6 @@ public class CreateOrderUseCase {
                 PaymentStatus.PENDING,
                 value,
                 0d,
-                null,
                 null
         ));
 
@@ -66,7 +65,6 @@ public class CreateOrderUseCase {
             ));
         }
 
-        payment.setOrder(createdOrder);
         paymentGateway.create(payment);
 
         return new Output(new FetchedOrder(createdOrder));
