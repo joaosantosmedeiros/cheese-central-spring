@@ -41,6 +41,6 @@ All the documentation can be found at http://localhost:8080/swagger-ui.html
 
 ### Next Steps
 For the next steps, i'm planning to:
-* Implement a Refresh Tokens system in this application.
 * Add a RabbitMQ connection with another API.
 * Add integration tests.
+* Dockerize both created APIs, RabbitMQ and Postgres.
